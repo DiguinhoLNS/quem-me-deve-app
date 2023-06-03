@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "paths": {
+            "@assets/*": ["./src/assets/*"],
+            "@components/*": ["./src/components/*"],
+            "@config/*": ["./src/config/*"],
+            "@constants/*": ["./src/constants/*"],
+            "@interfaces/*": ["./src/interfaces/*"],
+            "@mock/*": ["./src/mock/*"],
+            "@modules/*": ["./src/modules/*"],
+            "@redux/*": ["./src/redux/*"],
+            "@routes/*": ["./src/routes/*"],
+            "@styles/*": ["./src/styles/*"],
+            "@utils/*": ["./src/utils/*"],
+        }
+    }
+}
