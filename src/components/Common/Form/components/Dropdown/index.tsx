@@ -4,22 +4,18 @@ import { Menu, TouchableRipple } from 'react-native-paper'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Container from '@components/Layout/Container'
 import Typography from '@components/Typography'
-import { setNewAccessVeiculo } from '@modules/access/screens/AccessCreate/reducers/accessCreateReducer'
-import { setGuestVehicle } from '@modules/guest/reducers/guestReducer'
-import { useAppDispatch, useAppSelector } from '@redux/hooks'
-import { typography } from '@styles/themes'
+import { useAppSelector } from '@redux/hooks'
 import { FormDropdownProps } from './types'
 import FormLabel from '../Label'
 import * as S from './styles'
 
 const FormDropdown: React.FC<FormDropdownProps> = ({ label, dropdownWidth, showSelectedIcon, data, placeholder, field, value, setFieldValue, onChange }) => {
 
+    const { theme } = useAppSelector(s => s.theme)
+
     const [openDropdown, setOpenDropdown] = useState(false)
 
-    const { tiposVeiculos, newAccessVeiculo } = useAppSelector(s => s.accessCreate)
-
     const currentValue = data.find(f => f.value === value)
-    const dispatch = useAppDispatch()
 
     return (
 
@@ -47,7 +43,7 @@ const FormDropdown: React.FC<FormDropdownProps> = ({ label, dropdownWidth, showS
                                         {(!!currentValue && !!currentValue.icon && !!showSelectedIcon) && (
                                             <MaterialCommunityIcons
                                                 name={currentValue.icon}
-                                                color={typography.text.normal}
+                                                color={theme.typography.text.normal}
                                                 size={24}
                                                 style={{ marginRight: 8 }}
                                             />
@@ -63,19 +59,13 @@ const FormDropdown: React.FC<FormDropdownProps> = ({ label, dropdownWidth, showS
                     {data.map((item, index) => (
                         <Menu.Item
                             key={index}
-                            icon={item.icon}
+                            leadingIcon={item.icon}
                             title={item.label}
-                            titleStyle={{ color: typography.text.normal, fontSize: 16 }}
+                            titleStyle={{ color: theme.typography.text.normal, fontSize: 16 }}
                             onPress={() => {
                                 if (onChange) onChange(item)
-                                const tipoVeiculo = tiposVeiculos.find(tipo => tipo.nome === item.label)
-
-                                if (tipoVeiculo && tipoVeiculo.nome === 'Pedestre') {
-                                    dispatch(setGuestVehicle({ modelo: "", placa: "", marca: "" }))
-                                    dispatch(setNewAccessVeiculo({ modelo: "", placa: "", marca: "" }))
-                                }
-
-                                setFieldValue(field, tipoVeiculo ? tipoVeiculo.id : item.value)
+                                
+                                setFieldValue(field, item.value)
                                 setOpenDropdown(false)
                             }}
                         />

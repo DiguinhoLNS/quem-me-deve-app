@@ -3,12 +3,12 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { Text } from 'react-native-paper'
 import DatePicker from 'react-native-date-picker'
 import Container from '@components/Layout/Container'
-import themes from '@styles/themes'
+import { useAppSelector } from '@redux/hooks'
+import { formatDate } from '@utils/format'
 import FormLabel from '../Label'
 import { formDateStyles } from './styles'
 import { FormDateProps } from './types'
 import * as S from './styles'
-import { formatDate } from '@utils/format'
 
 const FormDate: React.FC <FormDateProps> = ({
     label = 'Selecione uma data',
@@ -22,6 +22,7 @@ const FormDate: React.FC <FormDateProps> = ({
     setFieldValue
 }) => {
 
+    const { theme } = useAppSelector(s => s.theme)
     const [openModal, setOpenModal] = useState(false)
 
     return (
@@ -36,7 +37,7 @@ const FormDate: React.FC <FormDateProps> = ({
                     disabled = {disabled}
                     onPress = {() => setOpenModal(true)}
                 >
-                    <Text style = {[formDateStyles.label, { color: !!error ? themes.status.error.primary : themes.typography.text.normal }]}>
+                    <Text style = {[formDateStyles.label, { color: !!error ? theme.status.error.primary : theme.typography.text.normal }]}>
                         {formatDate(value)}
                     </Text>
                     <MaterialCommunityIcons name="calendar-blank-outline" size={20} color="#6A7178" />

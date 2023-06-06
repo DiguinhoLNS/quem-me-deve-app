@@ -2,13 +2,14 @@ import React, { useMemo } from 'react'
 import { View } from 'react-native'
 import { ActivityIndicator, Text, TouchableRipple } from 'react-native-paper'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import themes from '@styles/themes'
+import { useAppSelector } from '@redux/hooks'
 import layout from '@styles/layout'
+import { darkTheme } from '@styles/themes'
 import { ButtonProps } from './types'
 import { buttonStyles } from './styles'
 
 const Button: React.FC <ButtonProps> = ({
-    theme = 'default',
+    type = 'default',
     style,
     color,
     labelColor,
@@ -22,14 +23,16 @@ const Button: React.FC <ButtonProps> = ({
     onPress
 }) => {
 
-    const isDefaultTheme = useMemo(() => theme === 'default', [theme])
+    const { theme } = useAppSelector(s => s.theme)
+
+    const isDefaultTheme = useMemo(() => type === 'default', [theme])
 
     const textColor = useMemo(() => {
-        return !!labelColor ? labelColor : theme === 'default' ? '#fff' : themes.typography.title.normal
+        return !!labelColor ? labelColor : type === 'default' ? darkTheme.typography.text.normal : theme.typography.text.normal
     }, [theme, labelColor])
 
     const backgroundColor = useMemo(() => {
-        return !!disabled ? themes.button.disabled : !!color ? color : isDefaultTheme ? themes.button.primary : 'transparent'
+        return !!color ? color : isDefaultTheme ? theme.colors.primary : 'transparent'
     }, [color, isDefaultTheme, disabled])
 
     return(

@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native'
 import styled from 'styled-components/native'
-import themes from '@styles/themes'
 
 export const formDateStyles = StyleSheet.create({
     label: {
@@ -18,7 +17,7 @@ export const DateTouchable = styled.TouchableOpacity`
     height: 56px;
     padding: 8px 12px;
     border-width: 1px;
-    border-color: ${props => !!props.error ? themes.status.error.primary : props.active ? themes.colors.primary : '#ADB5BD'};
+    //border-color: ${props => !!props.error ? themes.status.error.primary : props.active ? themes.colors.primary : '#ADB5BD'};
     border-radius: 12px;
     background-color: #FFF;
 `

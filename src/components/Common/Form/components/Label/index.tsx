@@ -3,11 +3,13 @@ import { FormLabelProps } from './types'
 import Container from '@components/Layout/Container'
 import Typography from '@components/Typography'
 import { TypographyElementProps } from '@components/Typography/components/types'
-import { status } from '@styles/themes'
+import { useAppSelector } from '@redux/hooks'
 
 const FormLabel: React.FC <Partial<TypographyElementProps> & FormLabelProps> = ({ label, error, ...props }) => {
 
-    const color = error ? status.error.primary : undefined
+    const { theme } = useAppSelector(s => s.theme)
+
+    const color = error ? theme.status.error.primary : undefined
 
     return(
 

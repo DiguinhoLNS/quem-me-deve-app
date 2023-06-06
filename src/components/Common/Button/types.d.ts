@@ -1,7 +1,7 @@
 import { StyleProp, ViewStyle } from "react-native"
 
 export type ButtonProps = {
-    theme?: 'default' | 'outline'
+    type?: 'default' | 'outline'
     style?: StyleProp<ViewStyle>
     color?: string
     labelColor?: string

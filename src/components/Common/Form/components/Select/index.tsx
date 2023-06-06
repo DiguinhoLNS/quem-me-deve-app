@@ -3,7 +3,7 @@ import { Keyboard, ScrollView } from 'react-native'
 import { Dialog, List, Portal, Text } from 'react-native-paper'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Container from '@components/Layout/Container'
-import themes, { typography } from '@styles/themes'
+import { useAppSelector } from '@redux/hooks'
 import FormLabel from '../Label'
 import { FormSelectProps } from './types'
 import * as S from './styles'
@@ -18,6 +18,8 @@ const FormSelect = <T extends unknown, P>({
     onChange,
     setFieldValue
 }: FormSelectProps<T, P>) => {
+
+    const { theme } = useAppSelector(s => s.theme)
 
     const [openSelect, setOpenSelect] = useState<boolean>(false)
 
@@ -40,12 +42,12 @@ const FormSelect = <T extends unknown, P>({
                 >
                     <Text
                         style = {[formSelectStyles.label, {
-                            color: !!error ? themes.status.error.primary : haveValue ? typography.title.dark : typography.text.normal
+                            color: !!error ? theme.status.error.primary : haveValue ? theme.typography.text.dark : theme.typography.text.normal
                         }]}
                         numberOfLines = {1}
                         ellipsizeMode = 'tail'
                     >{data.find(item => item.value === value as unknown as P)?.label ?? labelPlaceholder}</Text>
-                    <MaterialCommunityIcons name = {`chevron-${openSelect ? 'up' : 'down'}`} size = {24} color = {typography.text.normal} />
+                    <MaterialCommunityIcons name = {`chevron-${openSelect ? 'up' : 'down'}`} size = {24} color = {theme.typography.text.normal} />
                 </S.SelectTouchable>
             </Container>
             <Portal>
@@ -54,7 +56,7 @@ const FormSelect = <T extends unknown, P>({
                     visible = {openSelect}
                     onDismiss = {() => setOpenSelect(false)}
                 >
-                    <Dialog.Title style = {{color: typography.title.normal, fontWeight: '700', fontSize: 20}}>{labelPlaceholder}</Dialog.Title>
+                    <Dialog.Title style = {{color: theme.typography.text.normal, fontWeight: '700', fontSize: 20}}>{labelPlaceholder}</Dialog.Title>
                     <Dialog.ScrollArea style = {formSelectStyles.dialogScrollArea}>
                         <ScrollView contentContainerStyle = {formSelectStyles.dialogScrollView}>
                             {data.map((item, index) => (

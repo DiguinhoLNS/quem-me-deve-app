@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { Platform } from 'react-native'
+import getTheme from '@modules/theme/scripts/getTheme'
 import AppRoutes from '@modules/app/routes'
 import AppLoader from '@modules/app/components/Loader'
 import localUser from '@modules/auth/scripts/local/user'
@@ -15,6 +16,8 @@ const Routes: React.FC = () => {
 
     useEffect(() => {
         (async () => {
+            getTheme(dispatch)
+
             await Promise.all([
                 localUser.get(dispatch),
             ])

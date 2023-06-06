@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react'
 import { TextInput } from 'react-native-paper'
 import TextInputMask from 'react-native-text-input-mask'
-import themes, { typography } from '@styles/themes'
 import FormLabel from '../Label'
 import { FormInputProps } from './types'
+import { useAppSelector } from '@redux/hooks'
 
 const FormInput: React.FC <FormInputProps> = ({
     field,
@@ -23,6 +23,8 @@ const FormInput: React.FC <FormInputProps> = ({
     onChange
 }) => {
 
+    const { theme } = useAppSelector(s => s.theme)
+
     const inputRef = useRef(null)
     const [showSecure, setShowSecure] = useState<boolean | undefined>(secure)
 
@@ -31,14 +33,14 @@ const FormInput: React.FC <FormInputProps> = ({
         keyboardType: keyboardType ? keyboardType : 'default',
         theme: {
             colors: {
-                primary: themes.colors.primary,
+                primary: theme.colors.primary,
                 background: '#FFFFFF',
                 placeholder: '#6A7178',
-                text: typography.title.normal,
+                text: theme.typography.text.normal,
             },
             roundness: 12,
         },
-        selectionColor: themes.colors.primary,
+        selectionColor: theme.colors.primary,
         outlineColor: '#ADB5BD',
         editable: editable ?? true,
         error: !!error ?? false,
@@ -93,15 +95,15 @@ const FormInput: React.FC <FormInputProps> = ({
                     right = {
                         !!right ? right : (!!secure ? (
                             <TextInput.Icon
-                                name = "eye-outline"
-                                color = {error ? themes.status.error.primary : showSecure ? '#ADB5BD' : themes.colors.primary}
+                                icon = "eye-outline"
+                                color = {error ? theme.status.error.primary : showSecure ? '#ADB5BD' : theme.colors.primary}
                                 forceTextInputFocus = {false}
                                 onPress = {() => setShowSecure(!showSecure)}
                             />
                         ) : !!error ? (
                             <TextInput.Icon
-                                name = "alert-circle"
-                                color = {themes.status.error.primary}
+                            icon = "alert-circle"
+                                color = {theme.status.error.primary}
                                 forceTextInputFocus = {false}
                             />
                         ) : null)

@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import { Keyboard, ScrollView } from 'react-native'
 import { Dialog, List, Portal, Searchbar, Text } from 'react-native-paper'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import Container from '@components/Layout/Container'
-import themes, { typography } from '@styles/themes'
-import FormLabel from '../Label'
-import { FormMutiSelectProps } from './types'
-import * as S from './styles'
 import NoData from '@components/Feedback/NoData'
+import Container from '@components/Layout/Container'
+import { useAppSelector } from '@redux/hooks'
+import FormLabel from '../Label'
+import * as S from './styles'
+import { FormMutiSelectProps } from './types'
 
 const FormMultiSelect: React.FC <FormMutiSelectProps> = ({
     label = 'Selecione',
@@ -20,6 +20,8 @@ const FormMultiSelect: React.FC <FormMutiSelectProps> = ({
     setFieldValue
 }) => {
 
+    const { theme } = useAppSelector(s => s.theme)
+    
     const [openSelect, setOpenSelect] = useState<boolean>(false)
     const [searchValue, setSearchValue] = useState<string>('')
 
@@ -50,7 +52,7 @@ const FormMultiSelect: React.FC <FormMutiSelectProps> = ({
                 >
                     <Text
                         style = {[formSelectStyles.label, {
-                            color: !!error ? themes.status.error.primary : haveValue ? typography.title.dark : typography.text.normal
+                            color: !!error ? theme.status.error.primary : haveValue ? theme.typography.text.dark : theme.typography.text.normal
                         }]}
                         numberOfLines = {3}
                         ellipsizeMode = 'tail'
@@ -58,7 +60,7 @@ const FormMultiSelect: React.FC <FormMutiSelectProps> = ({
                     <MaterialCommunityIcons
                         name = {`chevron-${openSelect ? 'up' : 'down'}`}
                         size = {24}
-                        color = {typography.text.normal}
+                        color = {theme.typography.text.normal}
                     />
                 </S.SelectTouchable>
             </Container>
@@ -68,7 +70,7 @@ const FormMultiSelect: React.FC <FormMutiSelectProps> = ({
                     visible = {openSelect}
                     onDismiss = {() => setOpenSelect(false)}
                 >
-                    <Dialog.Title style = {{color: typography.title.normal, fontWeight: '700', fontSize: 20}}>{labelPlaceholder}</Dialog.Title>
+                    <Dialog.Title style = {{color: theme.typography.text.normal, fontWeight: '700', fontSize: 20}}>{labelPlaceholder}</Dialog.Title>
                     <Dialog.ScrollArea style = {formSelectStyles.dialogScrollArea}>
                         <Container marginTop = {8} padding = {false}>
                             <Searchbar
@@ -93,7 +95,7 @@ const FormMultiSelect: React.FC <FormMutiSelectProps> = ({
                                                 <List.Icon
                                                     {...props}
                                                     icon = "check"
-                                                    color = {themes.status.success.primary}
+                                                    color = {theme.status.success.primary}
                                                 />
                                             )
                                         }

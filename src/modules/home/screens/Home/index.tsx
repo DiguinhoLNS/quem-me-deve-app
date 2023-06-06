@@ -7,12 +7,12 @@ import Container from '@components/Layout/Container'
 import Typography from '@components/Typography'
 import localUser from '@modules/auth/scripts/local/user'
 import { AppRouteParams } from '@modules/app/routes/types'
-import { useAppDispatch } from '@redux/hooks'
-import { status } from '@styles/themes'
+import { useAppDispatch, useAppSelector } from '@redux/hooks'
 
 const Home: React.FC <StackScreenProps<AppRouteParams, 'home'>> = ({ navigation }) => {
 
     const dispatch = useAppDispatch()
+    const { theme } = useAppSelector(s => s.theme)
 
     return(
 
@@ -27,7 +27,7 @@ const Home: React.FC <StackScreenProps<AppRouteParams, 'home'>> = ({ navigation 
                     <Button
                         icon = "logout"
                         label = "Encerrar sessão"
-                        color = {status.error.primary}
+                        color = {theme.status.error.primary}
                         marginBottom = {16}
                         onPress = {() => {
                             localUser.remove(dispatch, navigation)

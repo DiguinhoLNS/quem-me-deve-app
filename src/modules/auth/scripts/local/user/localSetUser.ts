@@ -1,8 +1,8 @@
+import { UserData } from "@modules/auth/interfaces/UserData"
+import { setAuthLogin, setAuthUserData } from "@modules/auth/reducers/authReducer"
 import { DispatchType } from "@redux/interfaces"
 import storage from "@utils/storage"
 import info from "@utils/info"
-import { UserData } from "../../../interfaces/UserData"
-import { setAuthLogin, setAuthUserData } from "../../../reducers/authReducer"
 
 export default async function localSetUser(dispatch: DispatchType, userData: UserData, setLogin?: boolean){
     try {

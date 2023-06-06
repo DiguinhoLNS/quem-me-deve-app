@@ -1,6 +1,5 @@
 import { Dimensions, Platform, ViewStyle } from "react-native"
-import themes from "@styles/themes"
-import { elevationPattern } from "../base"
+import { elevationPattern } from "./base"
 
 export const marginHorizontal = 16
 
@@ -45,7 +44,6 @@ export const fab: ViewStyle = {
     position: 'absolute', 
     bottom: tabbarHeight + (Platform.OS === 'ios' ? 48 : 16),
     right: 16,
-    backgroundColor: themes.colors.primary
 }
 
 export const dialog: ViewStyle = {

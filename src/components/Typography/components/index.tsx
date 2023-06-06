@@ -1,10 +1,8 @@
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { Text } from 'react-native-paper'
-import themes from '@styles/themes'
+import { useAppSelector } from '@redux/hooks'
 import { TypographyElementProps, TypographyLinkProps } from './types'
-
-const { text, title, link } = themes.typography
 
 export const TypographyNativeText: React.FC <TypographyElementProps> = ({ children, style }) => {
 
@@ -17,7 +15,7 @@ export const TypographyLink: React.FC <TypographyElementProps & TypographyLinkPr
     return(
 
         <TouchableOpacity {...touchableProps} style = {touchableProps.touchableStyle}>
-            <Text style = {[{color: touchableProps.disabled ? themes.button.disabled : link}, style]}>{children}</Text>
+            <Text style = {[style]}>{children}</Text>
         </TouchableOpacity>
 
     )
@@ -26,12 +24,16 @@ export const TypographyLink: React.FC <TypographyElementProps & TypographyLinkPr
 
 export const TypographyText: React.FC <TypographyElementProps> = ({ children, style, theme = 'normal' }) => {
 
-    return <Text style = {[{color: text[theme]}, style]}>{children}</Text>
+    const { typography } = useAppSelector(s => s.theme.theme)
+
+    return <Text style = {[{color: typography.text[theme]}, style]}>{children}</Text>
 
 }
 
 export const TypographyTitle: React.FC <TypographyElementProps> = ({ children, style, theme = 'normal' }) => {
 
-    return <Text style = {[{color: title[theme], fontSize: 20, fontWeight: '700'}, style]}>{children}</Text>
+    const { typography } = useAppSelector(s => s.theme.theme)
+
+    return <Text style = {[{color: typography.text[theme], fontSize: 20, fontWeight: '700'}, style]}>{children}</Text>
 
 }

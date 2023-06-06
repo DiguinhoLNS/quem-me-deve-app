@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import themes from "@styles/themes"
 import { Screen } from "../interfaces/Screen"
 
 interface State {
@@ -8,9 +7,9 @@ interface State {
 
 const initialState: State = {
     screen: {
-        statusBarColor: themes.colors.tertiary,
+        statusBarColor: '#FFFFFF',
         navigationBarColor: '#FFFFFF',
-        navigatorColor: '#F1F3F5',
+        navigatorColor: '#FFFFFF',
     }
 }
 
