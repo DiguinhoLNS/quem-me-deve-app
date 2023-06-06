@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { lightTheme } from "@styles/themes"
+import { darkTheme, lightTheme } from "@styles/themes"
 import storage from "@utils/storage"
 import { Theme } from "../interfaces/Theme"
 
@@ -9,41 +9,32 @@ export enum ColorScheme {
 }
 
 interface State {
-    colorScheme: ColorScheme
     theme: Theme
 }
 
 const initialState: State = {
-    colorScheme: ColorScheme.Light,
-    theme: lightTheme
+    theme: lightTheme,
 }
 
 const ThemeSlice = createSlice({
     name: 'theme',
     initialState,
     reducers: {
-        setColorScheme: (state, action: PayloadAction<ColorScheme>) => {
-            state.colorScheme = action.payload
-
-            storage.setItem('colorScheme', action.payload)
-        },
-        toggleColorScheme: (state) => {
-            const newColorScheme = state.colorScheme === ColorScheme.Light ? ColorScheme.Dark : ColorScheme.Light
-            state.colorScheme = newColorScheme
-
-            storage.setItem('colorScheme', newColorScheme)
-        },
-    
         setTheme: (state, action: PayloadAction<Theme>) => {
             state.theme = action.payload
 
             storage.setItem('theme', action.payload)
         },
+        toggleTheme: (state) => {
+            const newTheme = state.theme!.scheme === ColorScheme.Light ? darkTheme : lightTheme
+            state.theme = newTheme
+
+            storage.setItem('theme', newTheme)
+        }
     }
 })
 
-export const { 
-    setColorScheme, toggleColorScheme,
-    setTheme
+export const {
+    setTheme, toggleTheme
 } = ThemeSlice.actions
 export default ThemeSlice.reducer

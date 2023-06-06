@@ -1,4 +1,6 @@
 export interface Theme {
+    scheme: 'dark-mode' | 'light-mode'
+
     colors: ThemeColorPattern
     status: {
         error: ThemeColorPattern

@@ -1,3 +1,5 @@
+import { Theme } from "@modules/theme/interfaces/Theme"
+
 export const colorsTheme = {
     primary: '#F57625',
     secondary: '#F55833',
@@ -27,7 +29,9 @@ export const statusTheme = {
     },
 }
 
-export const lightTheme = {
+export const lightTheme: Theme = {
+    scheme: 'light-mode',
+
     colors: colorsTheme,
     status: statusTheme,
     
@@ -47,7 +51,9 @@ export const lightTheme = {
     }
 }
 
-export const darkTheme = {
+export const darkTheme: Theme = {
+    scheme: 'dark-mode',
+
     colors: colorsTheme,
     status: statusTheme,
 

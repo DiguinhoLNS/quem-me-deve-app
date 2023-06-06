@@ -17,10 +17,7 @@ const Routes: React.FC = () => {
     useEffect(() => {
         (async () => {
             getTheme(dispatch)
-
-            await Promise.all([
-                localUser.get(dispatch),
-            ])
+            localUser.get(dispatch)
 
             dispatch(setAuthLoading(false))
         })()
