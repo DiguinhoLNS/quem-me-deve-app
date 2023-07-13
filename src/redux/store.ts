@@ -5,7 +5,7 @@ import coreReducer from '@modules/core/reducers/coreReducer'
 import themeReducer from '@modules/theme/reducers/themeReducer'
 import requestAppReducer from '@modules/app/reducers/requestAppReducer'
 import requestCoreReducer from '@modules/core/reducers/requestCoreReducer'
-import requestAuthReducer from '@modules/auth/reducers/requestAuthReducer'
+import requestAuthLoginReducer from '@modules/auth/screens/Login/reducers/requestAuthLoginReducer'
 
 const store = configureStore({
     reducer: {
@@ -18,7 +18,7 @@ const store = configureStore({
         theme: themeReducer,
 
         auth: authReducer,
-        requestAuth: requestAuthReducer,
+        requestAuthLogin: requestAuthLoginReducer,
     },
     middleware: getDefaultMiddleware => getDefaultMiddleware({
         serializableCheck: false,

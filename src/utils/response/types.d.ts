@@ -1,6 +1,5 @@
-import { MessageOptions } from "react-native-flash-message"
 import { ActionCreatorWithoutPayload, ActionCreatorWithPayload } from "@reduxjs/toolkit"
-import { handleResponseError } from "."
+import { DispatchType } from "@redux/interfaces"
 
 export interface ResponseStatesPattern<T> {
     data: T | null
@@ -10,32 +9,36 @@ export interface ResponseStatesPattern<T> {
 }
 
 export interface ResponsePattern<T> {
-    flagErro: boolean
-    listaMensagens: string[]
-    listaResultados: T
+    error: boolean
+    message: string[]
+    data: T
 }
 
 export type ResponseDefault<T> = ResponseStatesPattern<ResponsePattern<T>>
 
-export interface HandleResponseReducers {
+export interface HandleResponseActions {
     data: ActionCreatorWithPayload<ResponsePattern<any>, string>
     loading: ActionCreatorWithoutPayload<string>
     error: ActionCreatorWithoutPayload<string>
-    message: ActionCreatorWithPayload<string, string>
     reset: ActionCreatorWithoutPayload<string>
 }
 
-export type HandleResponseErrorReducers = Omit<HandleResponseReducers, 'data' | 'loading'>
+export type HandleResponseErrorActions = Omit<HandleResponseActions, 'data' | 'loading'>
 
-export type InitRequestReducers = Omit<HandleResponseReducers, 'data' | 'error' | 'message'>
+export type InitRequestActions = Omit<HandleResponseActions, 'data' | 'error'>
 
-export interface ResponseMessageOptions {
-    errorMessage?: Partial<MessageOptions>
-    successMessage?: Partial<MessageOptions>
+export interface HandleResponseProps {
+    initiator: string
+    dispatch: DispatchType
+    response: ResponsePattern<any> | null
+    actions?: HandleResponseActions
+    showMessage?: boolean
 }
 
-export interface HandleResponseOptions {
-    onSuccess?: () => void
-    onError?: () => void
-    messages?: ResponseMessageOptions
+export interface HandleResponseErrorProps {
+    initiator: string
+    dispatch: DispatchType
+    error: any
+    actions?: HandleResponseErrorActions
+    showMessage?: boolean
 }

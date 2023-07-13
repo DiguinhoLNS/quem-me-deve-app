@@ -4,8 +4,8 @@ export default function conditionaRender<T>(response: ResponseDefault<T>, data: 
 
     const LOADING = response.loading
     const ERROR = !LOADING && response.error
-    const DATA = !LOADING && !ERROR && !!response.data && !!data && (!!lenght ? ((response.data.listaResultados as T[]).length > 0 && (data as T[]).length > 0) : true)
-    const NODATA = !LOADING && !ERROR && DATA === false
+    const DATA = (!LOADING && !ERROR) && !!response.data && !!data && (!!lenght ? ((response.data.data as T[]).length > 0 && (data as T[]).length > 0) : true)
+    const NODATA = (!LOADING && !ERROR) && DATA === false
 
     return { LOADING, ERROR, DATA, NODATA }
 

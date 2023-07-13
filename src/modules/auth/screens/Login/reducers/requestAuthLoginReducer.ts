@@ -11,12 +11,13 @@ const initialState: State = {
     requestSubmitLogin: responseInitialValues
 }
 
-const requestAuthSlice = createSlice({
-    name: 'requestAuth',
+const requestAuthLoginSlice = createSlice({
+    name: 'requestAuthLogin',
     initialState,
     reducers: {
         setRequestSubmitLoginData: (state, action: PayloadAction<ResponsePattern<UserData>>) => {
             state.requestSubmitLogin.data = action.payload
+
             state.requestSubmitLogin.error = false
             state.requestSubmitLogin.loading = false
         },
@@ -24,12 +25,11 @@ const requestAuthSlice = createSlice({
             state.requestSubmitLogin.loading = true
             state.requestSubmitLogin.error = false
         },
-        setRequestSubmitLoginError: (state) => {
+        setRequestSubmitLoginError: (state, action: PayloadAction<string>) => {
+            state.requestSubmitLogin.message = action.payload
+
             state.requestSubmitLogin.loading = false
             state.requestSubmitLogin.error = true
-        },
-        setRequestSubmitLoginMessage: (state, action: PayloadAction<string>) => {
-            state.requestSubmitLogin.message = action.payload
         },
         resetRequestSubmitLogin: (state) => {
             state.requestSubmitLogin = {...responseInitialValues}
@@ -37,14 +37,13 @@ const requestAuthSlice = createSlice({
     }
 })
 
-const actions = requestAuthSlice.actions
+const { actions } = requestAuthLoginSlice
 
 export const requestSubmitLoginActions = {
     data: actions.setRequestSubmitLoginData,
     loading: actions.setRequestSubmitLoginLoading,
     error: actions.setRequestSubmitLoginError,
-    message: actions.setRequestSubmitLoginMessage,
     reset: actions.resetRequestSubmitLogin,
 }
 
-export default requestAuthSlice.reducer
+export default requestAuthLoginSlice.reducer

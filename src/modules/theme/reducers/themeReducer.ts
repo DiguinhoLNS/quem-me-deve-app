@@ -10,10 +10,12 @@ export enum ColorScheme {
 
 interface State {
     theme: Theme
+    isDark: boolean
 }
 
 const initialState: State = {
     theme: lightTheme,
+    isDark: false
 }
 
 const ThemeSlice = createSlice({
@@ -22,19 +24,20 @@ const ThemeSlice = createSlice({
     reducers: {
         setTheme: (state, action: PayloadAction<Theme>) => {
             state.theme = action.payload
+            state.isDark = action.payload.scheme === ColorScheme.Dark
 
             storage.setItem('theme', action.payload)
         },
         toggleTheme: (state) => {
             const newTheme = state.theme!.scheme === ColorScheme.Light ? darkTheme : lightTheme
+
             state.theme = newTheme
+            state.isDark = newTheme.scheme === ColorScheme.Dark
 
             storage.setItem('theme', newTheme)
         }
     }
 })
 
-export const {
-    setTheme, toggleTheme
-} = ThemeSlice.actions
+export const { setTheme, toggleTheme } = ThemeSlice.actions
 export default ThemeSlice.reducer
