@@ -9,7 +9,8 @@ const initialState: State = {
     createCharge: {
         amount: 0,
         formattedAmount: '',
-        debtor: undefined,
+        debtorName: undefined,
+        debtorCellphone: undefined
     }
 }
 

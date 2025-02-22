@@ -8,8 +8,10 @@ export type FormInputProps = {
     error?: boolean,
     secure?: boolean,
     disabled?: boolean,
+    autoCapitalize?: "none" | "sentences" | "words" | "characters",
     style?: StyleProp<TextStyle>,
     lines?: number,
     right?: React.ReactNode,
+    showRight?: boolean,
     onChangeText: (text: string) => void,
 }

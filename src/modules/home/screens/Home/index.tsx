@@ -1,18 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { Button } from 'react-native-paper'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
 import Render from '@components/Screen/Render'
 import Section from '@components/Layout/Section'
 import Container from '@components/Layout/Container'
 import { useTheme } from '@hooks/useTheme'
+import { resetCreateCharge } from '@modules/charge/reducers/createChargeReducer'
+import { useAppDispatch } from '@redux/hooks'
 import { marginDefault } from '@styles/layout'
 import HomeUserInfo from './components/UserInfo'
-import { Button } from 'react-native-paper'
-import { useNavigation } from '@react-navigation/native'
 
-const Home: React.FC= () => {
+const Home: React.FC = () => {
+
+    const dispatch = useAppDispatch()
 
     const theme = useTheme()
 
     const navigation = useNavigation<any>()
+    const isFocused = useIsFocused()
+
+    useEffect(() => {
+        if(isFocused){
+            dispatch(resetCreateCharge())
+        }
+    }, [isFocused])
 
     return(
 

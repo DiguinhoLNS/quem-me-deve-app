@@ -33,8 +33,8 @@ const Render: React.FC <ScreenRenderProps> = React.memo(({
     const theme = useTheme()
 
     const wrapperBGColor = useMemo(() => 
-        wrapperBackgroundColor ?? theme.colors.background, [wrapperBackgroundColor, theme.colors.background]
-    )
+        wrapperBackgroundColor ?? theme.colors.surface
+    , [wrapperBackgroundColor, theme.colors.surface])
 
     const barColor = useMemo(() => (
         statusBarOptions?.backgroundColor ?? (statusBarOptions?.translucent ? 'transparent' : wrapperBGColor )

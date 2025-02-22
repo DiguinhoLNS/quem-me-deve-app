@@ -23,6 +23,10 @@ target 'QuemMeDeve' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  permissions_path = '../node_modules/react-native-permissions/ios'
+
+  pod 'Permission-Contacts', :path => "#{permissions_path}/Contacts"
+
   target 'QuemMeDeveTests' do
     inherit! :complete
     # Pods for testing

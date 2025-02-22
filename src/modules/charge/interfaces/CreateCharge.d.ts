@@ -1,6 +1,6 @@
 export interface CreateCharge {
     amount: number
     formattedAmount: string
-    debtor: string
+    debtorName: string
     debtorCellphone: string
 }

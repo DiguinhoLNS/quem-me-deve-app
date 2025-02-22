@@ -8,13 +8,15 @@ import Container from '@components/Layout/Container'
 import { useTheme } from '@hooks/useTheme'
 import { setCreateCharge } from '@modules/charge/reducers/createChargeReducer'
 import { CreateChargeRouteParams } from '@modules/charge/routes/CreateCharge/types'
-import { useAppDispatch } from '@redux/hooks'
+import { useAppDispatch, useAppSelector } from '@redux/hooks'
 import { contentWidth, marginDefault } from '@styles/layout'
+import { formatCurrency } from '@utils/format'
 import { formCreateChargeValueSchema, formCreateChargeValueValues } from './config'
 
 const Form: React.FC <StackScreenProps<CreateChargeRouteParams, 'createChargeValue'>> = ({ navigation }) => {
 
     const dispatch = useAppDispatch()
+    const { createCharge } = useAppSelector(s => s.createCharge)
 
     const [focus, setFocus] = useState(false)  
 
@@ -24,10 +26,15 @@ const Form: React.FC <StackScreenProps<CreateChargeRouteParams, 'createChargeVal
 
         <>
             <Formik
-                initialValues = {formCreateChargeValueValues}
+                initialValues = {{
+                    amount: createCharge.amount || formCreateChargeValueValues.amount,
+                }}
                 validationSchema = {formCreateChargeValueSchema}
                 onSubmit = {v => {
-                    dispatch(setCreateCharge(v))
+                    dispatch(setCreateCharge({
+                        amount: v.amount,
+                        formattedAmount: formatCurrency(v.amount),
+                    }))
 
                     navigation.navigate('createChargeDebtor')
                 }}
@@ -36,7 +43,7 @@ const Form: React.FC <StackScreenProps<CreateChargeRouteParams, 'createChargeVal
                     <>
                         <Container marginTop = {marginDefault} padding = {false}>
                             <Section marginBottom = {marginDefault}>
-                                <Text style = {{fontSize: 40}}>Qual o valor da <Text style = {{fontWeight: '700'}}>Cobrança</Text>?</Text>
+                                <Text style = {{fontSize: 40}}>Qual o valor da <Text style = {{fontWeight: '700'}}>Cobrança?</Text></Text>
                             </Section>
 
                             <Section>    

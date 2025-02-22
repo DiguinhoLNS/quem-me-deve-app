@@ -10,9 +10,11 @@ const FormInput: React.FC <FormInputProps> = ({
     value,
     error = false,
     disabled = false,
+    autoCapitalize = "none",
     secure,
     lines,
     right,
+    showRight = true,
     onChangeText
 }) => {
 
@@ -27,6 +29,7 @@ const FormInput: React.FC <FormInputProps> = ({
         secureTextEntry: showSecure,
         multiline: !!lines,
         numberOfLines: lines ?? 1,
+        autoCapitalize
     }
 
     return(
@@ -36,12 +39,11 @@ const FormInput: React.FC <FormInputProps> = ({
                 {...inputProps}
                 mode = "outlined"
                 label = {label}
-                autoCapitalize = 'none'
                 placeholder = {placeholder}
                 value = {value}
                 onChangeText = {onChangeText}
                 right = {
-                    !!right ? right : (!!secure ? (
+                    (!!right && showRight) ? right : (!!secure ? (
                         <TextInput.Icon
                             icon = "eye"
                             color = {showSecure ? undefined : theme.colors.primary}
