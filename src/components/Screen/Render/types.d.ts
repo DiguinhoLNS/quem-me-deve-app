@@ -20,5 +20,6 @@ export interface ScreenRenderProps {
     paddingBottom?: number
     onRefresh?: Function
     loadingColor?: string[],
+    disableBottomEdge?: boolean
     onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void
 }

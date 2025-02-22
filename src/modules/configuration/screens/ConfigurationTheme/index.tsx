@@ -1,15 +1,14 @@
 import React from 'react'
-import { Avatar, Divider, IconButton, List, SegmentedButtons, TouchableRipple } from 'react-native-paper'
+import { SegmentedButtons } from 'react-native-paper'
 import { StackScreenProps } from '@react-navigation/stack'
 import Render from '@components/Screen/Render'
 import Section from '@components/Layout/Section'
 import Container from '@components/Layout/Container'
-import ScreenDivider from '@components/Screen/Divider'
 import { useTheme } from '@hooks/useTheme'
+import themePalettes from '@modules/theme/constants/palette'
 import { useAppTheme } from '@modules/theme/contexts/ThemeContext'
 import { ConfigurationRouteParams } from '@modules/configuration/routes/types'
 import { marginDefault } from '@styles/layout'
-import themePalettes from '@modules/theme/constants/palette'
 import { ThemePalette } from '@modules/theme/interfaces/Palette'
 import PaletteSelector from './components/PaletteSelector'
 
@@ -25,12 +24,10 @@ const ConfigurationTheme: React.FC <StackScreenProps<ConfigurationRouteParams, '
             <Render
                 statusBarOptions = {{ backgroundColor: theme.colors.primary }}
             >
-                <ScreenDivider />
-
-                <Section>
+                <Section marginTop = {marginDefault}>
                     <SegmentedButtons
                         value = {isDarkTheme ? 'dark' : 'light'}
-                        onValueChange = {v => toggleTheme()}
+                        onValueChange = {() => toggleTheme()}
                         buttons = {[
                             { icon: 'white-balance-sunny', label: 'Claro', value: 'light' },
                             { icon: 'moon-waning-crescent', label: 'Escuro', value: 'dark' },
@@ -39,21 +36,6 @@ const ConfigurationTheme: React.FC <StackScreenProps<ConfigurationRouteParams, '
                 </Section>
 
                 <Section padding = {false}>
-
-                    {/* <Container marginTop = {marginDefault}>
-                        <SegmentedButtons
-                            value = {palette}
-                            onValueChange = {v => togglePalette(v as ThemePalette)}
-                            buttons = {Object.keys(themePalettes).map(key => ({
-                                icon: 'palette',
-                                checkedColor: themePalettes[key as ThemePalette][isDarkTheme ? 'dark' : 'light'].primary,
-                                uncheckedColor: themePalettes[key as ThemePalette][isDarkTheme ? 'dark' : 'light'].primary,
-                                label: '',
-                                value: key
-                            }))}
-                        />
-                    </Container> */}
-
                     <Container type = "row" gap = {marginDefault} marginTop = {marginDefault} center wrap>
                         {Object.keys(themePalettes).map((key, index) => (
                             <PaletteSelector

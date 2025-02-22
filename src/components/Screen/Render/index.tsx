@@ -9,7 +9,7 @@ import toPixel from '@utils/toPixel'
 import { Wrapper } from './styles'
 import { ScreenRenderProps } from './types'
 
-const Render: React.FC<ScreenRenderProps> = React.memo(({
+const Render: React.FC <ScreenRenderProps> = React.memo(({
     children,
     header,
     align = 'flex-start',
@@ -20,6 +20,7 @@ const Render: React.FC<ScreenRenderProps> = React.memo(({
     onRefresh,
     loadingColor,
     statusBarOptions,
+    disableBottomEdge = false,
     onScroll
 }) => {
 
@@ -65,10 +66,11 @@ const Render: React.FC<ScreenRenderProps> = React.memo(({
         if(isFocused){
             createScreen(dispatch, {
                 statusBarColor: barColor,
-                backgroundColor: wrapperBGColor
+                backgroundColor: wrapperBGColor,
+                disableBottomEdge,
             })
         }
-    }, [isFocused, barColor, wrapperBGColor])
+    }, [isFocused, barColor, wrapperBGColor, disableBottomEdge])
 
     const handleRefresh = useCallback(async () => {
         setRefreshLoading(true)

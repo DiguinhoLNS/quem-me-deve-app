@@ -1,8 +1,8 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import ScreenHeader from '@components/Screen/Header'
+import HomeRoutes from '@modules/home/routes'
 import ConfigurationRoutes from '@modules/configuration/routes'
-import Home from '@modules/home/screens/Home'
 import { useAppSelector } from '@redux/hooks'
 import { AppRouteParams } from './types'
 
@@ -15,17 +15,17 @@ const AppRoutes: React.FC = () => {
     return (
 
         <Navigator
-            initialRouteName = "homeIndex"
+            initialRouteName = "homeRoutes"
             screenOptions = {{
                 cardStyle: { backgroundColor: screen.backgroundColor },
                 header: ScreenHeader
             }}
         >
             <Screen
-                name = "homeIndex"
-                component = {Home}
+                name = "homeRoutes"
+                component = {HomeRoutes}
                 options = {{
-                    title: 'Home',
+                    title: 'Quem me Deve',
                 }}
             />
 

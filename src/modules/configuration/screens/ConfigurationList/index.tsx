@@ -4,13 +4,13 @@ import { Divider, List, Text } from 'react-native-paper'
 import Render from '@components/Screen/Render'
 import Section from '@components/Layout/Section'
 import Container from '@components/Layout/Container'
-import ScreenDivider from '@components/Screen/Divider'
 import DialogMessage from '@components/Common/DialogMessage'
 import { useTheme } from '@hooks/useTheme'
 import { getAppVersion } from '@modules/app/controllers/appController'
 import { cleanAll, logout } from '@modules/auth/controllers/authController'
 import { ConfigurationRouteParams } from '@modules/configuration/routes/types'
 import { useAppDispatch, useAppSelector } from '@redux/hooks'
+import { marginDefault } from '@styles/layout'
 import capitalizeFirstLetter from '@utils/capitalizeFirstLetter'
 
 const ConfigurationList: React.FC <StackScreenProps<ConfigurationRouteParams, 'configurationList'>> = ({ navigation }) => {
@@ -33,8 +33,7 @@ const ConfigurationList: React.FC <StackScreenProps<ConfigurationRouteParams, 'c
                 statusBarOptions = {{ backgroundColor: theme.colors.primary }}
                 align = "space-between"
             >
-                <Container marginBottom = {32} padding = {false}>
-                    <ScreenDivider />
+                <Container marginTop = {marginDefault} marginBottom = {marginDefault * 2} padding = {false}>
                     <Section marginBottom = {24} center>
                         <Text variant = "titleLarge">Olá</Text>
                         <Text variant = "headlineMedium">{capitalizeFirstLetter(userData?.login.split(' ')[0] ?? 'Usuário')}</Text>

@@ -37,7 +37,7 @@ export function getAppVersion(){
     const date = moment(APP_VERSION.RELEASE_DATE, "DD/MM/YYYY").format('YYYY/MM/DD')
 
     const version = APP_VERSION.CODE
-    const build = `${date.replaceAll('/', '')}-${APP_VERSION.CODE.replaceAll('.', '')}-${APP_VERSION.BUILD}${APP_VERSION.DEVBUILD}`
+    const build = `${APP_VERSION.CODE.replaceAll('.', '')}.${APP_VERSION.BUILD}${APP_VERSION.DEVBUILD}.${date.replaceAll('/', '')}`
 
     return { version, build }
 }

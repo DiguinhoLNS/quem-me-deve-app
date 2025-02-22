@@ -1,5 +1,5 @@
 export type AppRouteParams = {
-    homeIndex: undefined
+    homeRoutes: undefined
 
     configurationRoutes: undefined
 }

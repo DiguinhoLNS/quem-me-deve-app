@@ -13,6 +13,7 @@ const initialState: State = {
     screen: {
         statusBarColor: '#FFFFFF',
         backgroundColor: '#FFFFFF',
+        disableBottomEdge: false
     },
 
     network: undefined,
