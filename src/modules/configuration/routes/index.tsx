@@ -1,5 +1,5 @@
 import React from 'react'
-import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack'
+import { createStackNavigator } from '@react-navigation/stack'
 import ScreenHeader from '@components/Screen/Header'
 import { useAppSelector } from '@redux/hooks'
 import ConfigurationList from '../screens/ConfigurationList'
@@ -17,7 +17,6 @@ const ConfigurationRoutes: React.FC = () => {
         <Navigator
             initialRouteName = "configurationList"
             screenOptions = {{
-                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
                 cardStyle: { backgroundColor: screen.backgroundColor },
                 header: props => <ScreenHeader {...props} elevated = {props.route.name !== 'configurationList'} />,
             }}

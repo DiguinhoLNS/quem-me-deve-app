@@ -5,7 +5,7 @@ import { DispatchType } from "@redux/interfaces"
 export default function createScreen(dispatch: DispatchType, screen?: Partial<Screen>){
     const styles = {
         statusBarColor: screen?.statusBarColor ?? '#FFFFFF',
-        navigatorColor: screen?.backgroundColor ?? '#FFFFFF',
+        backgroundColor: screen?.backgroundColor ?? '#FFFFFF',
     }
 
     dispatch(setScreen(styles))

@@ -1,5 +1,5 @@
 import React from 'react'
-import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack'
+import { createStackNavigator } from '@react-navigation/stack'
 import ScreenHeader from '@components/Screen/Header'
 import { useAppSelector } from '@redux/hooks'
 import AuthLogin from '../screens/AuthLogin'
@@ -16,7 +16,6 @@ const AuthRoutes: React.FC = () => {
         <Navigator
             initialRouteName = "authLogin"
             screenOptions = {{
-                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
                 cardStyle: { backgroundColor: screen.backgroundColor },
                 header: ScreenHeader
             }}

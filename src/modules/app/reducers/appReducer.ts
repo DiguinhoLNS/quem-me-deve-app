@@ -24,8 +24,8 @@ const appSlice = createSlice({
     name: 'app',
     initialState,
     reducers: {
-        setScreen: (state, action: PayloadAction<Partial<Screen>>) => {
-            state.screen = {...state.screen, ...action.payload}
+        setScreen: (state, action: PayloadAction<Screen>) => {
+            state.screen = action.payload
         },
 
         setShowTabBar: (state, action: PayloadAction<boolean>) => {

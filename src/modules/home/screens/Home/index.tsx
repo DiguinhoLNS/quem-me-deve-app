@@ -7,7 +7,7 @@ import Container from '@components/Layout/Container'
 import AppVersion from '@components/Feedback/AppVersion'
 import { useTheme } from '@hooks/useTheme'
 import { AppRouteParams } from '@modules/app/routes/types'
-import { marginHorizontal } from '@styles/layout'
+import { marginDefault } from '@styles/layout'
 import HomeUserInfo from './components/UserInfo'
 
 const Home: React.FC <StackScreenProps<AppRouteParams, 'homeIndex'>> = () => {
@@ -21,7 +21,7 @@ const Home: React.FC <StackScreenProps<AppRouteParams, 'homeIndex'>> = () => {
                 statusBarOptions = {{ backgroundColor: theme.colors.primary }}
                 align = "space-between"
             >
-                <Container marginBottom = {marginHorizontal * 2} padding = {false}>
+                <Container marginBottom = {marginDefault * 2} padding = {false}>
                     <Divider />
                     <Section>
                         <HomeUserInfo />
@@ -29,7 +29,7 @@ const Home: React.FC <StackScreenProps<AppRouteParams, 'homeIndex'>> = () => {
                 </Container>
 
                 <Container>
-                    <AppVersion />
+                    
                 </Container>
             </Render>
         </>

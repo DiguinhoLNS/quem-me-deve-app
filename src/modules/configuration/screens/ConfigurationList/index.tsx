@@ -100,7 +100,7 @@ const ConfigurationList: React.FC <StackScreenProps<ConfigurationRouteParams, 'c
                 </Container>
 
                 <Container type = "row" padding = {false} center>
-                    <Text>Desenvolvido por <Text style = {{color: theme.colors.primary, fontWeight: 'bold'}}>Rodrigo Lima</Text></Text>
+                    <Text>Desenvolvido por <Text style = {{color: theme.colors.primary, fontWeight: 'bold'}}>DiguinhoLNS</Text>©</Text>
                 </Container>
             </Render>
 

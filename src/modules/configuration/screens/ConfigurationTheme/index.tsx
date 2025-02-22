@@ -8,7 +8,7 @@ import ScreenDivider from '@components/Screen/Divider'
 import { useTheme } from '@hooks/useTheme'
 import { useAppTheme } from '@modules/theme/contexts/ThemeContext'
 import { ConfigurationRouteParams } from '@modules/configuration/routes/types'
-import { marginHorizontal } from '@styles/layout'
+import { marginDefault } from '@styles/layout'
 import themePalettes from '@modules/theme/constants/palette'
 import { ThemePalette } from '@modules/theme/interfaces/Palette'
 import PaletteSelector from './components/PaletteSelector'
@@ -40,7 +40,7 @@ const ConfigurationTheme: React.FC <StackScreenProps<ConfigurationRouteParams, '
 
                 <Section padding = {false}>
 
-                    {/* <Container marginTop = {marginHorizontal}>
+                    {/* <Container marginTop = {marginDefault}>
                         <SegmentedButtons
                             value = {palette}
                             onValueChange = {v => togglePalette(v as ThemePalette)}
@@ -54,7 +54,7 @@ const ConfigurationTheme: React.FC <StackScreenProps<ConfigurationRouteParams, '
                         />
                     </Container> */}
 
-                    <Container type = "row" gap = {marginHorizontal} marginTop = {marginHorizontal} center wrap>
+                    <Container type = "row" gap = {marginDefault} marginTop = {marginDefault} center wrap>
                         {Object.keys(themePalettes).map((key, index) => (
                             <PaletteSelector
                                 key = {index}
