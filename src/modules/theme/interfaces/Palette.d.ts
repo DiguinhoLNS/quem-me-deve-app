@@ -1,0 +1,1 @@
+export type ThemePalette = 'green' | 'blue' | 'cyan'
