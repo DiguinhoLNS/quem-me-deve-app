@@ -3,6 +3,7 @@ import appReducer from '@modules/app/reducers/appReducer'
 import authReducer from '@modules/auth/reducers/authReducer'
 import themeReducer from '@modules/theme/reducers/themeReducer'
 import requestAuthReducer from '@modules/auth/reducers/requestAuthReducer'
+import createChargeReducer from '@modules/charge/reducers/createChargeReducer'
 
 const defaultReducer = combineReducers({
     app: appReducer,
@@ -11,6 +12,8 @@ const defaultReducer = combineReducers({
 
     auth: authReducer,
     requestAuth: requestAuthReducer,
+
+    createCharge: createChargeReducer,
 })
 
 const rootReducer = (state: any, action: any) => {

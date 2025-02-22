@@ -27,9 +27,9 @@ const dark = {
     "onInfoContainer": "rgb(212, 227, 255)",
 }
 
-const themeStatus = [
+const themeStatus = {
     light,
     dark
-]
+}
 
 export default themeStatus

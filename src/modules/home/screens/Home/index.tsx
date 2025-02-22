@@ -5,10 +5,14 @@ import Container from '@components/Layout/Container'
 import { useTheme } from '@hooks/useTheme'
 import { marginDefault } from '@styles/layout'
 import HomeUserInfo from './components/UserInfo'
+import { Button } from 'react-native-paper'
+import { useNavigation } from '@react-navigation/native'
 
 const Home: React.FC= () => {
 
     const theme = useTheme()
+
+    const navigation = useNavigation<any>()
 
     return(
 
@@ -25,6 +29,16 @@ const Home: React.FC= () => {
                 >
                     <Section>
                         <HomeUserInfo />
+                    </Section>
+
+                    <Section>
+                        <Button
+                            mode = "contained"
+                            icon = "cash-plus"
+                            buttonColor = {theme.colors.success}
+                            textColor = {theme.colors.onSuccess}
+                            onPress = {() => navigation.navigate('createChargeRoutes')}
+                        >Nova Cobrança</Button>
                     </Section>
                 </Container>
 
