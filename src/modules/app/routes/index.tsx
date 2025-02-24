@@ -1,7 +1,7 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import ScreenHeader from '@components/Screen/Header'
 import HomeRoutes from '@modules/home/routes'
+import ProfileRoutes from '@modules/profile/routes'
 import CreateChargeRoutes from '@modules/charge/routes/CreateCharge'
 import ConfigurationRoutes from '@modules/configuration/routes'
 import { useAppSelector } from '@redux/hooks'
@@ -19,31 +19,25 @@ const AppRoutes: React.FC = () => {
             initialRouteName = "homeRoutes"
             screenOptions = {{
                 cardStyle: { backgroundColor: screen.backgroundColor },
-                header: props => <ScreenHeader {...props} elevated = {false} />,
                 headerShown: false
             }}
         >
             <Screen
                 name = "homeRoutes"
                 component = {HomeRoutes}
-                options = {{
-                    title: 'Quem me Deve',
-                }}
             />
 
             <Screen
                 name = "createChargeRoutes"
                 component = {CreateChargeRoutes}
-                options = {{
-                    headerShown: false
-                }}
             />
             <Screen
                 name = "configurationRoutes"
                 component = {ConfigurationRoutes}
-                options = {{
-                    headerShown: false
-                }}
+            />
+            <Screen
+                name = "profileRoutes"
+                component = {ProfileRoutes}
             />
         </Navigator>
 

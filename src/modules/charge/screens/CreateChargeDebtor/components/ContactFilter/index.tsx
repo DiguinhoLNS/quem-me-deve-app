@@ -52,7 +52,7 @@ const Filter: React.FC <StackScreenProps<CreateChargeRouteParams, 'createChargeD
         <>
             <Container marginTop = {marginDefault} padding = {false}>
                 <Section marginBottom = {marginDefault}>
-                    <Text style = {{fontSize: 40}}>Quem vai receber a <Text style = {{fontWeight: '700'}}>Cobrança</Text>?</Text>
+                    <Text style = {{fontSize: 40}}>Quem vai receber a <Text style = {{fontWeight: 700}}>Cobrança</Text>?</Text>
                 </Section>
 
                 <ContactSearchbar
@@ -75,7 +75,7 @@ const Filter: React.FC <StackScreenProps<CreateChargeRouteParams, 'createChargeD
                     {SHOW_NODATA_FILTERED_CONTACTS && (
                         <Container marginTop = {marginDefault * 4} center>
                             <Text variant = "titleMedium">Nenhum resultado para</Text>
-                            <Text variant = "titleLarge" style = {{fontWeight: '700'}}>"{searchValue}"</Text>
+                            <Text variant = "titleLarge" style = {{fontWeight: 700}}>"{searchValue}"</Text>
                         </Container>
                     )}
 

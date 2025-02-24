@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import { ContainerProps } from './types'
 import { ContainerColumn, ContainerRow } from './styles'
 
-const Container: React.FC <ContainerProps> = ({ children, type, ...props }) => {
+const Container: React.FC <ContainerProps> = ({ children, type, style, ...props }) => {
 
     const renderType = useMemo(() => { return type ?? 'column' }, [type])
 
@@ -14,13 +14,13 @@ const Container: React.FC <ContainerProps> = ({ children, type, ...props }) => {
         pad: props.padding ?? true,
         marginTop: props.marginTop ?? 0,
         marginBottom: props.marginBottom ?? 0,
-        gap: props.gap ?? 0
+        gap: props.gap ?? 0,
     }
 
     return(
 
         <>
-            {renderType === 'column' && <ContainerColumn {...styles}>{children}</ContainerColumn> || <ContainerRow {...styles}>{children}</ContainerRow>}
+            {renderType === 'column' && <ContainerColumn style = {style} {...styles}>{children}</ContainerColumn> || <ContainerRow style = {style} {...styles}>{children}</ContainerRow>}
         </>
 
     )

@@ -15,6 +15,8 @@ export const SHOW_LOG = {
     WARN: false,
 }
 
+export const ISDEV = __DEV__
+
 export const IOS_APP_VERSION = {
     CODE: '0.0.1',
     BUILD: 1,

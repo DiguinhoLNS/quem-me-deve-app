@@ -26,7 +26,8 @@ const Overview: React.FC = () => {
                     style = {{backgroundColor: theme.colors.primary}}
                 >
                     <Container>
-                        <Text variant = "displayMedium" style = {{color: theme.colors.onPrimary}}>{total}</Text>
+                        <Text style = {{color: theme.colors.onPrimary}}>Saldo pendente</Text>
+                        <Text variant = "displaySmall" style = {{color: theme.colors.onPrimary}}>{total}</Text>
                     </Container>
 
                     <Container type = "row" padding = {false} between>

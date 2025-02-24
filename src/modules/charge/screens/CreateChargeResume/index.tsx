@@ -34,12 +34,12 @@ const CreateChargeResume: React.FC <StackScreenProps<CreateChargeRouteParams, 'c
                         <Text style = {{fontSize: 32}}>Você está cobrando,</Text>
                         <Text style = {{fontSize: 32}}>
                             <Text
-                                style = {{color: theme.colors.primary, fontWeight: '700'}}
+                                style = {{color: theme.colors.primary, fontWeight: 700}}
                                 onPress = {() => navigation.navigate('createChargeValue')}
                             >{currentCreateCharge.formattedAmount}</Text>
                             <Text> de </Text>
                             <Text
-                                style = {{color: theme.colors.primary, fontWeight: '700'}}
+                                style = {{color: theme.colors.primary, fontWeight: 700}}
                                 onPress = {() => navigation.goBack()}
                             >{currentCreateCharge.debtorName}</Text>
                         </Text>

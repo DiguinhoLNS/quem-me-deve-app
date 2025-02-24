@@ -7,6 +7,7 @@ export function createTheme(dark: boolean, palette: MD3Colors): MD3Theme {
         return {
             ...MD3DarkTheme,
             colors: {
+                ...MD3DarkTheme.colors,
                 ...themeStatus.dark,
                 ...palette
             },
@@ -17,6 +18,7 @@ export function createTheme(dark: boolean, palette: MD3Colors): MD3Theme {
     return {
         ...MD3LightTheme,
         colors: {
+            ...MD3LightTheme.colors,
             ...themeStatus.light,
             ...palette
         },

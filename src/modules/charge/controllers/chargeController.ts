@@ -1,13 +1,13 @@
+import { Share } from 'react-native'
 import uuid from 'react-native-uuid'
 import { DispatchType } from "@redux/interfaces"
+import info from '@utils/info'
+import { formatCurrency } from '@utils/format'
 import { createLocalFunctions } from '@utils/local'
 import { Charge } from "../interfaces/Charge"
 import { CreateCharge } from "../interfaces/CreateCharge"
 import { newCharge, setChargeList } from '../reducers/chargeReducer'
 import { resetCurrentCreateCharge } from "../reducers/createChargeReducer"
-import info from '@utils/info'
-import { Share } from 'react-native'
-import { formatCurrency } from '@utils/format'
 
 export const localCharge = {
     ...createLocalFunctions('chargeList', setChargeList)
@@ -72,9 +72,24 @@ export const chargeBiggestAmount = (charges: Charge[] | null) => {
 }
 
 export const chargeBiggestDebtor = (charges: Charge[] | null) => {
-    if(!charges) return ''
+    if (!charges) return { name: '', amount: formatCurrency(0) }
 
-    return charges.reduce((acc, cur) => cur.amount > acc.amount ? cur : acc, charges[0]).debtorName
+    let biggestDebtor = { name: '', amount: 0 }
+    const devedorMap = new Map<string, number>()
+
+    charges.forEach(({ debtorName, amount, dtPaid }) => {
+        if(!dtPaid){
+            devedorMap.set(debtorName, (devedorMap.get(debtorName) || 0) + amount)
+        }
+    })
+
+    devedorMap.forEach((total, name) => {
+        if(total > biggestDebtor.amount){
+            biggestDebtor = { name, amount: total };
+        }
+    })
+
+    return { name: biggestDebtor.name, amount: formatCurrency(biggestDebtor.amount) }
 }
 
 export const getChargeOverview = (charges: Charge[] | null) => {

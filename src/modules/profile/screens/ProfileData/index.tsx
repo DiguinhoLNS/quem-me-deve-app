@@ -1,11 +1,11 @@
 import React from 'react'
+import { StackScreenProps } from '@react-navigation/stack'
 import Render from '@components/Screen/Render'
 import { useTheme } from '@hooks/useTheme'
-import UserInfo from './components/UserInfo'
-import UserStatus from './components/UserStatus'
-import UserOptions from './components/UserOptions'
+import { ProfileRouteParams } from '@modules/profile/routes/types'
+import UserStatusData from './components/UserStatusData'
 
-const Profile: React.FC = () => {
+const ProfileData: React.FC <StackScreenProps<ProfileRouteParams, 'profileData'>> = () => {
 
     const theme = useTheme()
 
@@ -16,9 +16,7 @@ const Profile: React.FC = () => {
                 statusBarOptions = {{ backgroundColor: theme.colors.primary }}
                 disableBottomEdge = {true}
             >
-                <UserInfo />
-                <UserStatus />
-                <UserOptions />
+                <UserStatusData />
             </Render>
         </>
 
@@ -26,4 +24,4 @@ const Profile: React.FC = () => {
 
 }
 
-export default Profile
+export default ProfileData

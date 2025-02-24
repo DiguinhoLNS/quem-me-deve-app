@@ -37,7 +37,7 @@ const HeaderMenu: React.FC = () => {
                 />
             }
         >
-            {SHOW_AUTHORIZED && (
+            {!SHOW_AUTHORIZED && (
                 <>
                     <Menu.Item
                         leadingIcon = "cog"

@@ -43,7 +43,7 @@ const Form: React.FC <StackScreenProps<CreateChargeRouteParams, 'createChargeVal
                     <>
                         <Container marginTop = {marginDefault} padding = {false}>
                             <Section marginBottom = {marginDefault}>
-                                <Text style = {{fontSize: 40}}>Qual o valor da <Text style = {{fontWeight: '700'}}>Cobrança?</Text></Text>
+                                <Text style = {{fontSize: 40}}>Qual o valor da <Text style = {{fontWeight: 700}}>Cobrança?</Text></Text>
                             </Section>
 
                             <Section>    
@@ -55,12 +55,15 @@ const Form: React.FC <StackScreenProps<CreateChargeRouteParams, 'createChargeVal
                                     onBlur = {() => setFocus(false)}
                                     onChangeValue = {v => setFieldValue('amount', v ?? 0)}
                                     caretColor = {theme.colors.primary}
+                                    cursorColor = {theme.colors.primary}
+                                    placeholderTextColor = {theme.colors.onSurface}
                                     prefix = 'R$ '
                                     precision = {2}
                                     style = {{
                                         width: contentWidth,
                                         borderBottomWidth: 2,
                                         borderBottomColor: focus ? theme.colors.primary : theme.colors.outline,
+                                        color: theme.colors.onSurface,
                                         fontSize: 40,
                                     }}
                                 />

@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
-import { Card, IconButton, List } from 'react-native-paper'
+import { View } from 'react-native'
+import { Card, Icon, IconButton, List } from 'react-native-paper'
 import { useTheme } from '@hooks/useTheme'
 import { checkCharge, deleteCharge, toggleFixedCharge } from '@modules/charge/reducers/chargeReducer'
 import { useAppDispatch } from '@redux/hooks'
 import { formatDate } from '@utils/format'
 import { ChargeItemProps } from './types'
 
-const ChargeItem: React.FC <ChargeItemProps> = ({ data, onPress }) => {
+const ChargeItem: React.FC <ChargeItemProps> = ({ data, showActions = true, onPress }) => {
 
     const dispatch = useAppDispatch()
 
@@ -26,7 +27,7 @@ const ChargeItem: React.FC <ChargeItemProps> = ({ data, onPress }) => {
         <>
             <Card
                 key = {data.uuid}
-                style = {{marginBottom: 16, backgroundColor: statusTheme.cardBackgroundColor}}
+                style = {{marginBottom: 16}}
                 onPress = {() => {
                     onPress()
                     setOpenOptions(false)
@@ -40,7 +41,7 @@ const ChargeItem: React.FC <ChargeItemProps> = ({ data, onPress }) => {
                     titleVariant = "titleLarge"
                     titleStyle = {{
                         color: statusTheme.color,
-                        fontWeight: '700'
+                        fontWeight: 700
                     }}
                     style = {{
                         backgroundColor: statusTheme.backgroundColor,
@@ -48,22 +49,21 @@ const ChargeItem: React.FC <ChargeItemProps> = ({ data, onPress }) => {
                         borderTopLeftRadius: 12,
                     }}
                     right = {props => {
-                        if(data.fixed) return <List.Icon {...props} icon = "pin" color = {statusTheme.color} style = {{marginRight: 8}} />
+                        if(data.fixed) return <View style = {{marginRight: 16}}><Icon {...props} source = "pin" color = {statusTheme.color} size = {16} /></View>
                     }}
                 />
                 <List.Item
                     title = {data.debtorName}
-                    titleStyle = {{color: statusTheme.cardColor}}
                     description = {formatDate(new Date(data.dtCreated))}
-                    descriptionStyle = {{color: statusTheme.cardColor}}
-                    left = {props => <List.Icon {...props} icon = "account" color = {statusTheme.cardColor} />}
+                    left = {props => <List.Icon {...props} icon = "account" />}
                 />
-                {openOptions && (
+                {(openOptions && showActions) && (
                     <Card.Actions>
                         <IconButton
                             mode = "contained"
                             icon = "delete"
-                            iconColor = {theme.colors.error}
+                            iconColor = {theme.colors.onErrorContainer}
+                            style = {{ backgroundColor: theme.colors.errorContainer }}
                             onPress = {() => {
                                 dispatch(deleteCharge(data.uuid))
 
@@ -90,7 +90,8 @@ const ChargeItem: React.FC <ChargeItemProps> = ({ data, onPress }) => {
                             <IconButton
                                 mode = "contained"
                                 icon = "cash-check"
-                                iconColor = {theme.colors.success}
+                                iconColor = {theme.colors.onSuccessContainer}
+                                style = {{ backgroundColor: theme.colors.successContainer }}
                                 onPress = {() => {
                                     dispatch(checkCharge(data.uuid))
 

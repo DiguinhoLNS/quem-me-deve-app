@@ -11,6 +11,7 @@ export function createLocalFunctions<T>(
         get: (dispatch: DispatchType, saveOnRedux: boolean = true) => local.get(dispatch, storageKey, setValue, saveOnRedux),
         set: (dispatch: DispatchType, value: T, saveOnRedux: boolean = true) => local.set(dispatch, storageKey, setValue, value, saveOnRedux),
         remove: (dispatch: DispatchType) => local.remove(dispatch, storageKey, setValue),
+        clear: (dispatch: DispatchType, saveOnRedux: boolean = true) => local.clear(dispatch, storageKey, setValue, saveOnRedux),
     }
 }
 
@@ -74,8 +75,25 @@ function remove<T>(
     }
 }
 
+function clear<T>(
+    dispatch: DispatchType,
+    storageKey: string,
+    setData: ActionCreatorWithPayload<T | null>,
+    saveOnRedux: boolean = true,
+){
+    try {
+        if(saveOnRedux){
+            dispatch(setData(null))
+        }
+
+        storage.removeItem(storageKey)
+    } catch (error) {
+        info.error('clearLocal', error)
+    }
+}
+
 const local = {
-    get, set, remove
+    get, set, remove, clear
 }
 
 export default local

@@ -3,4 +3,5 @@ export type AppRouteParams = {
 
     createChargeRoutes: undefined
     configurationRoutes: undefined
+    profileRoutes: undefined
 }

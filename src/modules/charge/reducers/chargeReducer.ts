@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { Charge } from "../interfaces/Charge"
-import { check } from "react-native-permissions"
 
 interface State {
     chargeList: Charge[] | null
@@ -60,7 +59,9 @@ const chargeReducer = createSlice({
         checkCharge(state, action: PayloadAction<string>){
             if(!!state.chargeList){
                 const index = state.chargeList.findIndex(f => f.uuid === action.payload)
+
                 state.chargeList[index].dtPaid = new Date().toISOString()
+                state.chargeList[index].fixed = false
             }
         },
 

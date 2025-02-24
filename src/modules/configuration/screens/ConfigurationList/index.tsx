@@ -5,7 +5,9 @@ import Render from '@components/Screen/Render'
 import Section from '@components/Layout/Section'
 import Container from '@components/Layout/Container'
 import DialogMessage from '@components/Common/DialogMessage'
+import { ISDEV } from '@config/index'
 import { useTheme } from '@hooks/useTheme'
+import { localCharge } from '@modules/charge/controllers/chargeController'
 import { getAppVersion } from '@modules/app/controllers/appController'
 import { cleanAll, logout } from '@modules/auth/controllers/authController'
 import { ConfigurationRouteParams } from '@modules/configuration/routes/types'
@@ -63,6 +65,19 @@ const ConfigurationList: React.FC <StackScreenProps<ConfigurationRouteParams, 'c
                                 setOpenModalDeleteAllData(true)
                             }}
                         />
+
+                        {ISDEV && (
+                            <>
+                                <List.Item
+                                    title = "Limpar todas as cobranças"
+                                    titleStyle = {{ color: theme.colors.error }}
+                                    left = {props => <List.Icon {...props} color = {theme.colors.error} icon = "delete-forever" />}
+                                    onPress = {() => {
+                                        localCharge.clear(dispatch)
+                                    }}
+                                /> 
+                            </>
+                        )}
                     </Section>
                      
                     {SHOW_USER_DATA && (

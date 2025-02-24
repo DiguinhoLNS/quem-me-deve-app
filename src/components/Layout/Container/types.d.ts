@@ -1,3 +1,5 @@
+import { StyleProp, ViewStyle } from "react-native"
+
 export interface ContainerProps {
     children?: React.ReactNode
 
@@ -10,4 +12,5 @@ export interface ContainerProps {
     marginTop?: number,
     marginBottom?: number,
     gap?: number
+    style?: StyleProp<ViewStyle>
 }

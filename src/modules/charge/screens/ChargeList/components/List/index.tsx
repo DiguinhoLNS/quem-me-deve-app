@@ -3,11 +3,11 @@ import moment from 'moment'
 import { Text } from 'react-native-paper'
 import { StackScreenProps } from '@react-navigation/stack'
 import Container from '@components/Layout/Container'
+import ChargeItem from '@modules/charge/components/ChargeItem'
 import { setCurrentCharge } from '@modules/charge/reducers/chargeReducer'
 import { ChargeRouteParams } from '@modules/charge/routes/Charge/types'
 import { useAppDispatch, useAppSelector } from '@redux/hooks'
 import { marginDefault } from '@styles/layout'
-import ChargeItem from '../ChargeItem'
 
 const List: React.FC <StackScreenProps<ChargeRouteParams, 'chargeList'>> = ({ navigation }) => {
 

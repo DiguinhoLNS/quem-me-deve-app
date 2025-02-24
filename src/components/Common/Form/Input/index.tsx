@@ -35,7 +35,7 @@ const FormInput: React.FC <FormInputProps> = ({
     return(
 
         <>
-             <TextInput
+            <TextInput
                 {...inputProps}
                 mode = "outlined"
                 label = {label}
