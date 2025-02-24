@@ -17,7 +17,7 @@ const UserInfo: React.FC = () => {
 
     const theme = useTheme()
 
-    const { total } = getChargeOverview(chargeList)
+    const { unpaid } = getChargeOverview(chargeList)
 
     return(
 
@@ -38,7 +38,7 @@ const UserInfo: React.FC = () => {
 
                     <Section>
                         <Text style = {{color: theme.colors.onPrimary}}>Saldo pendente</Text>
-                        <Text variant = "displaySmall" style = {{color: theme.colors.onPrimary}}>{total}</Text>
+                        <Text variant = "displaySmall" style = {{color: theme.colors.onPrimary}}>{unpaid}</Text>
                     </Section>
                 </Container>
             </Container>

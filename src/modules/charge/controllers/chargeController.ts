@@ -1,13 +1,14 @@
 import { Share } from 'react-native'
 import uuid from 'react-native-uuid'
+import { Theme } from "@modules/theme/interfaces/Theme"
 import { DispatchType } from "@redux/interfaces"
 import info from '@utils/info'
 import { formatCurrency } from '@utils/format'
 import { createLocalFunctions } from '@utils/local'
 import { Charge } from "../interfaces/Charge"
 import { CreateCharge } from "../interfaces/CreateCharge"
-import { newCharge, setChargeList } from '../reducers/chargeReducer'
 import { resetCurrentCreateCharge } from "../reducers/createChargeReducer"
+import { checkCharge, deleteCharge, newCharge, setChargeList, toggleFixedCharge } from '../reducers/chargeReducer'
 
 export const localCharge = {
     ...createLocalFunctions('chargeList', setChargeList)
@@ -68,7 +69,7 @@ export function countChargeUnpaidAmounts(charges: Charge[] | null){
 export const chargeBiggestAmount = (charges: Charge[] | null) => {
     if(!charges) return 0
 
-    return charges.reduce((acc, cur) => cur.amount > acc ? cur.amount : acc, 0)
+    return charges.filter(f => !f.dtPaid).reduce((acc, cur) => cur.amount > acc ? cur.amount : acc, 0)
 }
 
 export const chargeBiggestDebtor = (charges: Charge[] | null) => {
@@ -100,4 +101,40 @@ export const getChargeOverview = (charges: Charge[] | null) => {
         biggestAmount: formatCurrency(chargeBiggestAmount(charges)),
         biggestDebtor: chargeBiggestDebtor(charges),
     }
+}
+
+export function getChargeTheme(charge: Charge, theme: Theme){
+    if(charge.dtPaid){
+        return {
+            color: theme.colors.onSuccess,
+            background: theme.colors.success,
+            onContainer: theme.colors.onSuccessContainer,
+            container: theme.colors.successContainer,
+        }
+    }
+
+    return {
+        color: theme.colors.onWarning,
+        background: theme.colors.warning,
+        onContainer: theme.colors.onWarningContainer,
+        container: theme.colors.warningContainer,
+    }
+}
+
+export async function handleShare(dispatch: DispatchType, charge: Charge){
+    await shareCharge(charge)
+}
+
+export function handleCheck(dispatch: DispatchType, charge: Charge){
+    dispatch(checkCharge(charge.uuid))
+}
+
+export function handleDelete(dispatch: DispatchType, charge: Charge, redirect?: () => void){
+    if(!!redirect) redirect()
+
+    dispatch(deleteCharge(charge.uuid))
+}
+
+export function handleToggleFixed(dispatch: DispatchType, charge: Charge){
+    dispatch(toggleFixedCharge(charge.uuid))
 }

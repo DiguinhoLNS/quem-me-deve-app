@@ -41,11 +41,19 @@ const chargeReducer = createSlice({
             }else{
                 state.chargeList = [action.payload]
             }
+
+            if(!!state.currentCharge && state.currentCharge.uuid === action.payload.uuid){
+                state.currentCharge = action.payload
+            }
         },
 
         deleteCharge(state, action: PayloadAction<string>){
             if(!!state.chargeList){
                 state.chargeList = state.chargeList.filter(f => f.uuid !== action.payload)
+
+                if(!!state.currentCharge && state.currentCharge.uuid === action.payload){
+                    state.currentCharge = null
+                }
             }
         },
 
@@ -53,6 +61,10 @@ const chargeReducer = createSlice({
             if(!!state.chargeList){
                 const index = state.chargeList.findIndex(f => f.uuid === action.payload)
                 state.chargeList[index].fixed = !state.chargeList[index].fixed
+
+                if(!!state.currentCharge && state.currentCharge.uuid === action.payload){
+                    state.currentCharge.fixed = !state.currentCharge.fixed
+                }
             }
         },
 
@@ -62,6 +74,11 @@ const chargeReducer = createSlice({
 
                 state.chargeList[index].dtPaid = new Date().toISOString()
                 state.chargeList[index].fixed = false
+
+                if(!!state.currentCharge && state.currentCharge.uuid === action.payload){
+                    state.currentCharge.dtPaid = new Date().toISOString()
+                    state.currentCharge.fixed = false
+                }
             }
         },
 

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Divider, Text } from 'react-native-paper'
+import { useNavigation } from '@react-navigation/native'
+import { Text } from 'react-native-paper'
 import Section from '@components/Layout/Section'
 import Container from '@components/Layout/Container'
 import ChargeItem from '@modules/charge/components/ChargeItem'
@@ -11,7 +12,9 @@ const List: React.FC = () => {
 
     const dispatch = useAppDispatch()
     
-    const { chargeList, chargeFilter } = useAppSelector(s => s.charge)
+    const { chargeList } = useAppSelector(s => s.charge)
+
+    const navigation = useNavigation<any>()
 
     const SHOW_DATA = !!chargeList && chargeList.length > 0
     const SHOW_NODATA = !chargeList || chargeList.length === 0
@@ -33,12 +36,14 @@ const List: React.FC = () => {
                                     <Text variant = "titleSmall" style = {{marginBottom: 8}}>Cobranças fixadas</Text>
                                 </Container>
 
-                                {chargeList.filter(f => f.fixed && !f.dtPaid).map(charge => (
+                                {chargeList.filter(f => f.fixed && !f.dtPaid).reverse().map(charge => (
                                     <ChargeItem
                                         key = {charge.uuid}
                                         data = {charge}
                                         onPress = {() => {
                                             dispatch(setCurrentCharge(charge))
+
+                                            navigation.navigate('chargeRoutes2', { screen: 'chargeDetails' })
                                         }}
                                     />
                                 ))}
@@ -51,12 +56,14 @@ const List: React.FC = () => {
                                     <Text variant = "titleSmall" style = {{marginBottom: 8}}>Últimas cobranças</Text>
                                 </Container>
 
-                                {chargeList.filter(f => !f.fixed && !f.dtPaid).slice(0, 3).map(charge => (
+                                {chargeList.filter(f => !f.fixed && !f.dtPaid).reverse().slice(0, 3).map(charge => (
                                     <ChargeItem
                                         key = {charge.uuid}
                                         data = {charge}
                                         onPress = {() => {
                                             dispatch(setCurrentCharge(charge))
+
+                                            navigation.navigate('chargeRoutes2', { screen: 'chargeDetails' })
                                         }}
                                     />
                                 ))}

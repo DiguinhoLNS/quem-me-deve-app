@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View } from 'react-native'
 import { Card, Icon, IconButton, List } from 'react-native-paper'
 import { useTheme } from '@hooks/useTheme'
-import { checkCharge, deleteCharge, toggleFixedCharge } from '@modules/charge/reducers/chargeReducer'
+import { handleCheck, handleDelete, handleShare, handleToggleFixed } from '@modules/charge/controllers/chargeController'
 import { useAppDispatch } from '@redux/hooks'
 import { formatDate } from '@utils/format'
 import { ChargeItemProps } from './types'
@@ -65,7 +65,7 @@ const ChargeItem: React.FC <ChargeItemProps> = ({ data, showActions = true, onPr
                             iconColor = {theme.colors.onErrorContainer}
                             style = {{ backgroundColor: theme.colors.errorContainer }}
                             onPress = {() => {
-                                dispatch(deleteCharge(data.uuid))
+                                handleDelete(dispatch, data)
 
                                 setOpenOptions(false)
                             }}
@@ -74,7 +74,7 @@ const ChargeItem: React.FC <ChargeItemProps> = ({ data, showActions = true, onPr
                             mode = "contained"
                             icon = {data.fixed ? "pin-off" : "pin"}
                             onPress = {() => {
-                                dispatch(toggleFixedCharge(data.uuid))
+                                handleToggleFixed(dispatch, data)
 
                                 setOpenOptions(false)
                             }}
@@ -82,7 +82,9 @@ const ChargeItem: React.FC <ChargeItemProps> = ({ data, showActions = true, onPr
                         <IconButton
                             mode = "contained"
                             icon = "share-variant"
-                            onPress = {() => {
+                            onPress = {async () => {
+                                await handleShare(dispatch, data)
+                                
                                 setOpenOptions(false)
                             }}
                         />
@@ -93,7 +95,7 @@ const ChargeItem: React.FC <ChargeItemProps> = ({ data, showActions = true, onPr
                                 iconColor = {theme.colors.onSuccessContainer}
                                 style = {{ backgroundColor: theme.colors.successContainer }}
                                 onPress = {() => {
-                                    dispatch(checkCharge(data.uuid))
+                                    handleCheck(dispatch, data)
 
                                     setOpenOptions(false)
                                 }}

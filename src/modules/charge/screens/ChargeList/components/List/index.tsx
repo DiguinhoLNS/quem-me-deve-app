@@ -37,7 +37,7 @@ const List: React.FC <StackScreenProps<ChargeRouteParams, 'chargeList'>> = ({ na
                         <Container key = {date} marginBottom = {24}>
                             <Text variant = "titleSmall" style = {{marginBottom: 8}}>{formattedDate}</Text>
 
-                            {dataList.filter(i => moment(i.dtCreated).format("YYYY-MM-DD") === date).map(charge => (
+                            {dataList.reverse().filter(i => moment(i.dtCreated).format("YYYY-MM-DD") === date).map(charge => (
                                 <ChargeItem
                                     key = {charge.uuid}
                                     data = {charge}

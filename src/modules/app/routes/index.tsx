@@ -1,6 +1,7 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import HomeRoutes from '@modules/home/routes'
+import ChargeRoutes from '@modules/charge/routes/Charge'
 import ProfileRoutes from '@modules/profile/routes'
 import CreateChargeRoutes from '@modules/charge/routes/CreateCharge'
 import ConfigurationRoutes from '@modules/configuration/routes'
@@ -38,6 +39,10 @@ const AppRoutes: React.FC = () => {
             <Screen
                 name = "profileRoutes"
                 component = {ProfileRoutes}
+            />
+            <Screen
+                name = "chargeRoutes2"
+                component = {ChargeRoutes}
             />
         </Navigator>
 

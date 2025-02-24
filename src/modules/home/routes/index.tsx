@@ -30,7 +30,7 @@ const HomeRoutes: React.FC = () => {
             onIndexChange = {setIndex}
             renderScene = {renderScene}
             // sceneAnimationEnabled = {true}
-            // sceneAnimationType = "shifting"
+            // sceneAnimationType = "shifting" 
             style = {{ backgroundColor: screen.backgroundColor }}
         />
 

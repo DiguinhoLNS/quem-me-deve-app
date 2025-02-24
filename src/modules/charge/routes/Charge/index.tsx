@@ -18,7 +18,7 @@ const ChargeRoutes: React.FC = () => {
             initialRouteName = "chargeList"
             screenOptions = {{
                 cardStyle: { backgroundColor: screen.backgroundColor },
-                header: ScreenHeader
+                header: props => <ScreenHeader {...props} elevated = {false} />
             }}
         >
             <Screen
@@ -26,7 +26,6 @@ const ChargeRoutes: React.FC = () => {
                 component = {ChargeList}
                 options = {{
                     title: 'Cobranças',
-                    header: props => <ScreenHeader {...props} elevated = {false} />,
                 }}
             />
             <Screen

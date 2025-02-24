@@ -20,7 +20,6 @@ const Home: React.FC = () => {
 
     const theme = useTheme()
 
-    const navigation = useNavigation<any>()
     const isFocused = useIsFocused()
 
     useEffect(() => {
