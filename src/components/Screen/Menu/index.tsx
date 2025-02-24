@@ -1,17 +1,20 @@
 import React, { useState } from 'react'
 import { Appbar, Menu } from 'react-native-paper'
+import { useNavigation } from '@react-navigation/native'
 import { useTheme } from '@hooks/useTheme'
 import { logout } from '@modules/auth/controllers/authController'
 import { useAppTheme } from '@modules/theme/contexts/ThemeContext'
 import { useAppDispatch, useAppSelector } from '@redux/hooks'
-import { MenuHeaderProps } from './types'
+import { AppRouteParams } from '@modules/app/routes/types'
 
-const HeaderMenu: React.FC <MenuHeaderProps> = ({ navigation, route }) => {
+const HeaderMenu: React.FC = () => {
 
     const dispatch = useAppDispatch()
     const { userData } = useAppSelector(s => s.auth)
     
     const [visible, setVisible] = useState(false)
+
+    const navigation = useNavigation<any>()
 
     const theme = useTheme()
     const { toggleTheme, isDarkTheme } = useAppTheme()
@@ -58,17 +61,15 @@ const HeaderMenu: React.FC <MenuHeaderProps> = ({ navigation, route }) => {
             />
             {SHOW_AUTHORIZED && (
                 <>
-                    {!route.name.toLowerCase().includes('auth') && (
-                        <Menu.Item
-                            leadingIcon = "logout"
-                            title = "Sair"
-                            onPress = {() => {
-                                closeMenu()
+                    <Menu.Item
+                        leadingIcon = "logout"
+                        title = "Sair"
+                        onPress = {() => {
+                            closeMenu()
 
-                                logout(dispatch, userData!, navigation as any)
-                            }}
-                        />
-                    )}
+                            logout(dispatch, userData!, navigation as any)
+                        }}
+                    />
                 </>
             )}
         </Menu>

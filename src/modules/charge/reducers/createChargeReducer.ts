@@ -2,11 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { CreateCharge } from "../interfaces/CreateCharge"
 
 interface State {
-    createCharge: Partial<CreateCharge>
+    currentCreateCharge: Partial<CreateCharge>
 }
 
 const initialState: State = {
-    createCharge: {
+    currentCreateCharge: {
         amount: 0,
         formattedAmount: '',
         debtorName: undefined,
@@ -18,18 +18,18 @@ const createChargeReducer = createSlice({
     name: 'createCharge',
     initialState,
     reducers: {
-        setCreateCharge(state, action: PayloadAction<Partial<CreateCharge>>){
-            state.createCharge = {
-                ...state.createCharge,
+        setCurrentCreateCharge(state, action: PayloadAction<Partial<CreateCharge>>){
+            state.currentCreateCharge = {
+                ...state.currentCreateCharge,
                 ...action.payload
             }
         },
 
-        resetCreateCharge(state){
-            state.createCharge = initialState.createCharge
+        resetCurrentCreateCharge(state){
+            state.currentCreateCharge = initialState.currentCreateCharge
         },
     }
 })
 
-export const { setCreateCharge, resetCreateCharge } = createChargeReducer.actions
+export const { setCurrentCreateCharge, resetCurrentCreateCharge } = createChargeReducer.actions
 export default createChargeReducer.reducer

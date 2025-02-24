@@ -1,0 +1,45 @@
+import React from 'react'
+import { createStackNavigator } from '@react-navigation/stack'
+import ScreenHeader from '@components/Screen/Header'
+import ChargeList from '@modules/charge/screens/ChargeList'
+import ChargeDetails from '@modules/charge/screens/ChargeDetails'
+import { useAppSelector } from '@redux/hooks'
+import { ChargeRouteParams } from './types'
+
+const ChargeRoutes: React.FC = () => {
+
+    const { screen } = useAppSelector(s => s.app)
+
+    const { Navigator, Screen } = createStackNavigator<ChargeRouteParams>()
+
+    return(
+
+        <Navigator
+            initialRouteName = "chargeList"
+            screenOptions = {{
+                cardStyle: { backgroundColor: screen.backgroundColor },
+                header: ScreenHeader
+            }}
+        >
+            <Screen
+                name = "chargeList"
+                component = {ChargeList}
+                options = {{
+                    title: 'Cobranças',
+                    header: props => <ScreenHeader {...props} elevated = {false} />,
+                }}
+            />
+            <Screen
+                name = "chargeDetails"
+                component = {ChargeDetails}
+                options = {{
+                    title: 'Detalhes',
+                }}
+            />
+        </Navigator>
+
+    )
+
+}
+
+export default ChargeRoutes

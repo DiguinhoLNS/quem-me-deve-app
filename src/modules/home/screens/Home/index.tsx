@@ -1,18 +1,20 @@
-import React, { useEffect } from 'react'
-import { Button } from 'react-native-paper'
+import React, { useEffect, useState } from 'react'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import Render from '@components/Screen/Render'
 import Section from '@components/Layout/Section'
+import CreateFab from '@modules/charge/components/CreateFAB'
 import Container from '@components/Layout/Container'
 import { useTheme } from '@hooks/useTheme'
-import { resetCreateCharge } from '@modules/charge/reducers/createChargeReducer'
+import AppHeader from '@modules/app/components/Header'
+import { resetCurrentCreateCharge } from '@modules/charge/reducers/createChargeReducer'
 import { useAppDispatch } from '@redux/hooks'
 import { marginDefault } from '@styles/layout'
-import HomeUserInfo from './components/UserInfo'
 
 const Home: React.FC = () => {
 
     const dispatch = useAppDispatch()
+
+    const [fabExtended, setFabExtended] = useState(true)
 
     const theme = useTheme()
 
@@ -21,7 +23,7 @@ const Home: React.FC = () => {
 
     useEffect(() => {
         if(isFocused){
-            dispatch(resetCreateCharge())
+            dispatch(resetCurrentCreateCharge())
         }
     }, [isFocused])
 
@@ -31,7 +33,14 @@ const Home: React.FC = () => {
             <Render
                 statusBarOptions = {{ backgroundColor: theme.colors.primary }}
                 disableBottomEdge
+                paddingBottom = {marginDefault + 56}
                 align = "space-between"
+                header = {<AppHeader />}
+                onScroll = {({ nativeEvent }) => {
+                    const currentScrollPosition = Math.floor(nativeEvent?.contentOffset?.y) ?? 0
+
+                    setFabExtended(currentScrollPosition <= 0)
+                }}
             >
                 <Container
                     marginTop = {marginDefault}
@@ -39,17 +48,9 @@ const Home: React.FC = () => {
                     padding = {false}
                 >
                     <Section>
-                        <HomeUserInfo />
                     </Section>
 
                     <Section>
-                        <Button
-                            mode = "contained"
-                            icon = "cash-plus"
-                            buttonColor = {theme.colors.success}
-                            textColor = {theme.colors.onSuccess}
-                            onPress = {() => navigation.navigate('createChargeRoutes')}
-                        >Nova Cobrança</Button>
                     </Section>
                 </Container>
 
@@ -57,6 +58,10 @@ const Home: React.FC = () => {
                     
                 </Container>
             </Render>
+
+            <CreateFab
+                extended = {fabExtended}
+            />
         </>
 
     )

@@ -5,6 +5,7 @@ import Render from '@components/Screen/Render'
 import Section from '@components/Layout/Section'
 import Container from '@components/Layout/Container'
 import { useTheme } from '@hooks/useTheme'
+import { createCharge } from '@modules/charge/controllers/chargeController'
 import { CreateChargeRouteParams } from '@modules/charge/routes/CreateCharge/types'
 import { marginDefault } from '@styles/layout'
 import { useAppDispatch, useAppSelector } from '@redux/hooks'
@@ -13,12 +14,12 @@ import resetNavigation from '@utils/resetNavigation'
 const CreateChargeResume: React.FC <StackScreenProps<CreateChargeRouteParams, 'createChargeResume'>> = ({ navigation }) => {
 
     const dispatch = useAppDispatch()
-    const { createCharge } = useAppSelector(s => s.createCharge)
+    const { currentCreateCharge } = useAppSelector(s => s.createCharge)
 
     const theme = useTheme()
 
     const handleSave = () => {
-        resetNavigation(navigation)
+        createCharge(dispatch, currentCreateCharge as any, () => resetNavigation(navigation))
     }
 
     return(
@@ -35,12 +36,12 @@ const CreateChargeResume: React.FC <StackScreenProps<CreateChargeRouteParams, 'c
                             <Text
                                 style = {{color: theme.colors.primary, fontWeight: '700'}}
                                 onPress = {() => navigation.navigate('createChargeValue')}
-                            >{createCharge.formattedAmount}</Text>
+                            >{currentCreateCharge.formattedAmount}</Text>
                             <Text> de </Text>
                             <Text
                                 style = {{color: theme.colors.primary, fontWeight: '700'}}
                                 onPress = {() => navigation.goBack()}
-                            >{createCharge.debtorName}</Text>
+                            >{currentCreateCharge.debtorName}</Text>
                         </Text>
                     </Section>
 
@@ -60,8 +61,8 @@ const CreateChargeResume: React.FC <StackScreenProps<CreateChargeRouteParams, 'c
                     <IconButton
                         mode = "contained"
                         icon = 'check'
-                        iconColor = {theme.colors.success}
-                        containerColor = {theme.colors.successContainer}
+                        iconColor = {theme.colors.onSuccess}
+                        containerColor = {theme.colors.success}
                         size = {32}
                         onPress = {handleSave}
                     />

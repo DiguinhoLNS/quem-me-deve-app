@@ -19,7 +19,8 @@ const AppRoutes: React.FC = () => {
             initialRouteName = "homeRoutes"
             screenOptions = {{
                 cardStyle: { backgroundColor: screen.backgroundColor },
-                header: ScreenHeader
+                header: props => <ScreenHeader {...props} elevated = {false} />,
+                headerShown: false
             }}
         >
             <Screen

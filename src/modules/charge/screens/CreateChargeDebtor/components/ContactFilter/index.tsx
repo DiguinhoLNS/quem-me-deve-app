@@ -6,7 +6,7 @@ import Section from '@components/Layout/Section'
 import Container from '@components/Layout/Container'
 import { useTheme } from '@hooks/useTheme'
 import { OrderContact } from '@modules/core/interfaces/OrderContact'
-import { setCreateCharge } from '@modules/charge/reducers/createChargeReducer'
+import { setCurrentCreateCharge } from '@modules/charge/reducers/createChargeReducer'
 import { CreateChargeRouteParams } from '@modules/charge/routes/CreateCharge/types'
 import { getContactName, sortCompareContatosKeys } from '@modules/core/controllers/coreController'
 import { useAppDispatch, useAppSelector } from '@redux/hooks'
@@ -18,7 +18,7 @@ const Filter: React.FC <StackScreenProps<CreateChargeRouteParams, 'createChargeD
 
     const dispatch = useAppDispatch()
     const { contacts } = useAppSelector(s => s.core)
-    const { createCharge } = useAppSelector(s => s.createCharge)
+    const { currentCreateCharge } = useAppSelector(s => s.createCharge)
 
     const [searchValue, setSearchValue] = useState('')
 
@@ -31,7 +31,7 @@ const Filter: React.FC <StackScreenProps<CreateChargeRouteParams, 'createChargeD
     const SHOW_CONTACTS = !!contacts && !SHOW_FILTERED_CONTACTS
 
     const handleSelectContact = (item: Contact) => {
-        dispatch(setCreateCharge({
+        dispatch(setCurrentCreateCharge({
             debtorName: getContactName(item),
             debtorCellphone: item.phoneNumbers[0].number,
         }))
@@ -40,7 +40,7 @@ const Filter: React.FC <StackScreenProps<CreateChargeRouteParams, 'createChargeD
     }
 
     const handleCreateDebtor = () => {
-        dispatch(setCreateCharge({
+        dispatch(setCurrentCreateCharge({
             debtorName: searchValue
         }))
 
@@ -67,7 +67,7 @@ const Filter: React.FC <StackScreenProps<CreateChargeRouteParams, 'createChargeD
                             key = {item.recordID}
                             label = {getContactName(item)}
                             description = {item.phoneNumbers[0].number}
-                            selected = {createCharge.debtorCellphone === item.phoneNumbers[0].number}
+                            selected = {currentCreateCharge.debtorCellphone === item.phoneNumbers[0].number}
                             onPress = {() => handleSelectContact(item)}
                         />
                     ))}
@@ -89,7 +89,7 @@ const Filter: React.FC <StackScreenProps<CreateChargeRouteParams, 'createChargeD
                                     key = {item.recordID}
                                     label = {getContactName(item)}
                                     description = {item.phoneNumbers[0].number}
-                                    selected = {createCharge.debtorCellphone === item.phoneNumbers[0].number}
+                                    selected = {currentCreateCharge.debtorCellphone === item.phoneNumbers[0].number}
                                     onPress = {() => handleSelectContact(item)}
                                 />
                             ))}
@@ -111,9 +111,9 @@ const Filter: React.FC <StackScreenProps<CreateChargeRouteParams, 'createChargeD
                 <IconButton
                     mode = "contained"
                     icon = 'arrow-right'
-                    disabled = {searchValue.length === 0 && !createCharge.debtorName}
-                    iconColor = {theme.colors.success}
-                    containerColor = {theme.colors.successContainer}
+                    disabled = {searchValue.length === 0 && !currentCreateCharge.debtorName}
+                    iconColor = {theme.colors.onSuccess}
+                    containerColor = {theme.colors.success}
                     size = {32}
                     onPress = {handleCreateDebtor}
                 />

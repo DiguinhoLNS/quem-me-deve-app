@@ -1,10 +1,10 @@
 import { FormatNumberOptions } from "react-native-currency-input"
 
 const formatCurrencyOptions: FormatNumberOptions = {
-    separator: ',',
-    prefix: 'R$',
-    precision: 2,
+    prefix: 'R$ ',
     delimiter: '.',
+    separator: ',',
+    precision: 2,
     signPosition: 'beforePrefix'
 }
 

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Appbar } from 'react-native-paper'
 import { useTheme } from '@hooks/useTheme'
 import HeaderMenu from '../Menu'
 import { ScreenHeaderProps } from './types'
 
-const ScreenHeader: React.FC <ScreenHeaderProps> = ({ canGoBack = true, elevated = true, ...props }) => {
+const ScreenHeader: React.FC <ScreenHeaderProps> = ({ elevated = true, ...props }) => {
 
     const theme = useTheme()
 
@@ -20,7 +20,7 @@ const ScreenHeader: React.FC <ScreenHeaderProps> = ({ canGoBack = true, elevated
             
             <Appbar.Content title = {props.options.title} color = {theme.colors.onPrimary} />
 
-            <HeaderMenu {...props} />
+            <HeaderMenu />
         </Appbar.Header>
 
     )

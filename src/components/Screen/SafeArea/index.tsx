@@ -7,10 +7,12 @@ const AppSafeArea: React.FC <AppSafeAreaProps> = React.memo(({ children }) => {
 
     const { screen } = useAppSelector(s => s.app)
 
+    const { statusBarColor, backgroundColor, disableBottomEdge } = screen
+
     const styles = useMemo(() => ({
         statusBar: { flex: 1, backgroundColor: screen.statusBarColor },
         background: { flex: 0, backgroundColor: screen.backgroundColor }
-    }), [screen.statusBarColor, screen.backgroundColor])
+    }), [statusBarColor, backgroundColor])
 
     const bottomEdges: Edges = useMemo(() => {
         const edges = ['left', 'right']
@@ -18,7 +20,7 @@ const AppSafeArea: React.FC <AppSafeAreaProps> = React.memo(({ children }) => {
         if(!screen.disableBottomEdge) edges.push('bottom')
             
         return edges as Edges
-    }, [screen.disableBottomEdge])
+    }, [disableBottomEdge])
 
     return(
 

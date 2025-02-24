@@ -6,7 +6,7 @@ import { FakeCurrencyInput } from 'react-native-currency-input'
 import Section from '@components/Layout/Section'
 import Container from '@components/Layout/Container'
 import { useTheme } from '@hooks/useTheme'
-import { setCreateCharge } from '@modules/charge/reducers/createChargeReducer'
+import { setCurrentCreateCharge } from '@modules/charge/reducers/createChargeReducer'
 import { CreateChargeRouteParams } from '@modules/charge/routes/CreateCharge/types'
 import { useAppDispatch, useAppSelector } from '@redux/hooks'
 import { contentWidth, marginDefault } from '@styles/layout'
@@ -16,7 +16,7 @@ import { formCreateChargeValueSchema, formCreateChargeValueValues } from './conf
 const Form: React.FC <StackScreenProps<CreateChargeRouteParams, 'createChargeValue'>> = ({ navigation }) => {
 
     const dispatch = useAppDispatch()
-    const { createCharge } = useAppSelector(s => s.createCharge)
+    const { currentCreateCharge } = useAppSelector(s => s.createCharge)
 
     const [focus, setFocus] = useState(false)  
 
@@ -27,11 +27,11 @@ const Form: React.FC <StackScreenProps<CreateChargeRouteParams, 'createChargeVal
         <>
             <Formik
                 initialValues = {{
-                    amount: createCharge.amount || formCreateChargeValueValues.amount,
+                    amount: currentCreateCharge.amount || formCreateChargeValueValues.amount,
                 }}
                 validationSchema = {formCreateChargeValueSchema}
                 onSubmit = {v => {
-                    dispatch(setCreateCharge({
+                    dispatch(setCurrentCreateCharge({
                         amount: v.amount,
                         formattedAmount: formatCurrency(v.amount),
                     }))
@@ -50,11 +50,12 @@ const Form: React.FC <StackScreenProps<CreateChargeRouteParams, 'createChargeVal
                                 <FakeCurrencyInput
                                     value = {values.amount ?? 0}
                                     minValue = {0}
+                                    maxValue = {999999}
                                     onFocus = {() => setFocus(true)}
                                     onBlur = {() => setFocus(false)}
                                     onChangeValue = {v => setFieldValue('amount', v ?? 0)}
                                     caretColor = {theme.colors.primary}
-                                    prefix = 'R$'
+                                    prefix = 'R$ '
                                     precision = {2}
                                     style = {{
                                         width: contentWidth,
@@ -78,10 +79,10 @@ const Form: React.FC <StackScreenProps<CreateChargeRouteParams, 'createChargeVal
                             <IconButton
                                 mode = "contained"
                                 icon = 'arrow-right'
-                                iconColor = {theme.colors.success}
-                                containerColor = {theme.colors.successContainer}
-                                disabled = {values.amount === 0}
                                 size = {32}
+                                disabled = {values.amount === 0}
+                                iconColor = {theme.colors.onSuccess}
+                                containerColor = {theme.colors.success}
                                 onPress = {() => handleSubmit()}
                             />
                         </Section>

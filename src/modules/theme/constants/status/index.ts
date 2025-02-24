@@ -14,6 +14,7 @@ const light = {
 }
 
 const dark = {
+    "success": "rgb(130, 219, 126)",
     "onSuccess": "rgb(0, 57, 10)",
     "successContainer": "rgb(0, 83, 18)",
     "onSuccessContainer": "rgb(157, 248, 152)",
