@@ -34,6 +34,12 @@ const UserOptions: React.FC = () => {
                         navigation.navigate('configurationRoutes')
                     }}
                 />
+
+            </Section>
+
+            <Section padding = {false}>
+                <Divider />
+
                 <List.Item
                     title = "Sobre"
                     description = "Informações sobre o aplicativo"

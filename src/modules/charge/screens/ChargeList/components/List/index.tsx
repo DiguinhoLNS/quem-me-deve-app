@@ -16,7 +16,7 @@ const List: React.FC <StackScreenProps<ChargeRouteParams, 'chargeList'>> = ({ na
     const { chargeList, chargeFilter } = useAppSelector(s => s.charge)
 
     const dataList = chargeList?.filter(f => [0, f.dtPaid ? 2 : 1].includes(chargeFilter))
-    const dateListDates = [...new Set(dataList?.map(i => moment(i.dtCreated).format("YYYY-MM-DD")))]
+    const dateListDates = [...new Set(dataList?.reverse().map(i => moment(i.dtCreated).format("YYYY-MM-DD")))]
 
     const SHOW_DATA = !!dataList && dataList.length > 0
     const SHOW_NODATA = !dataList || dataList?.length === 0

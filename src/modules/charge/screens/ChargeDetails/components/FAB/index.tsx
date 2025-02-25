@@ -23,6 +23,8 @@ const ChargeFAB: React.FC = () => {
         { icon: 'share-variant', label: 'Compartilhar', onPress: () => handleShare(dispatch, currentCharge!) },
     ]
 
+    if(currentCharge!.dtPaid) actions.splice(1, 1)
+
     return(
 
         <>

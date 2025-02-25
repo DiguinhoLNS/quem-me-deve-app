@@ -73,7 +73,7 @@ const ConfigurationList: React.FC <StackScreenProps<ConfigurationRouteParams, 'c
                                     titleStyle = {{ color: theme.colors.error }}
                                     left = {props => <List.Icon {...props} color = {theme.colors.error} icon = "delete-forever" />}
                                     onPress = {() => {
-                                        localCharge.clear(dispatch)
+                                        localCharge.remove(dispatch)
                                     }}
                                 /> 
                             </>

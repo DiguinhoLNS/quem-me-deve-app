@@ -1623,6 +1623,27 @@ PODS:
     - React-logger (= 0.76.3)
     - React-perflogger (= 0.76.3)
     - React-utils (= 0.76.3)
+  - RNCClipboard (1.16.1):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - RNDeviceInfo (14.0.4):
     - React-Core
   - RNGestureHandler (2.24.0):
@@ -1799,6 +1820,70 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - RNShare (12.0.9):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - RNSVG (15.11.2):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - RNSVG/common (= 15.11.2)
+    - Yoga
+  - RNSVG/common (15.11.2):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - RNVectorIcons (10.2.0):
     - DoubleConversion
     - glog
@@ -1893,11 +1978,14 @@ DEPENDENCIES:
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "RNCClipboard (from `../node_modules/@react-native-clipboard/clipboard`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNShare (from `../node_modules/react-native-share`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -2042,6 +2130,8 @@ EXTERNAL SOURCES:
     :path: build/generated/ios
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNCClipboard:
+    :path: "../node_modules/@react-native-clipboard/clipboard"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
   RNGestureHandler:
@@ -2052,6 +2142,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNShare:
+    :path: "../node_modules/react-native-share"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   Yoga:
@@ -2126,11 +2220,14 @@ SPEC CHECKSUMS:
   React-utils: 2bcaf4f4dfe361344bce2fae428603d518488630
   ReactCodegen: ae99a130606068ed40d1d9c0d5f25fda142a0647
   ReactCommon: 89c87b343deacc8610b099ac764848f0ce937e3e
+  RNCClipboard: c1dd9a853d56764a04ba278f61cd2cb58a138396
   RNDeviceInfo: feea80a690d2bde1fe51461cf548039258bd03f2
   RNGestureHandler: 2a0d67d2378072a9be03cdd954bf4e4474c46c22
   RNPermissions: bab59da50ddc84babf8067c802ffd1d2352ae8f4
   RNReanimated: 9ee6347ca0aa3cf78cae715455e781728ae142e2
   RNScreens: 3536657dc38c66208d2e6e05c37021a3ab13f93c
+  RNShare: 1df87ca5978543aacf496211abe7f8546068dff6
+  RNSVG: 2df153c20fffef75a099c23836cd5e9ecba386fe
   RNVectorIcons: 07792a9538e8577c1263fcad187712e90d65d8fb
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   Yoga: f6dc1b6029519815d5516a1241821c6a9074af6d

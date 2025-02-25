@@ -43,6 +43,10 @@ const ChargeItem: React.FC <ChargeItemProps> = ({ data, showActions = true, onPr
                         color: statusTheme.color,
                         fontWeight: 700
                     }}
+                    subtitle = {data.dtPaid ? formatDate(new Date(data.dtPaid)) : undefined}
+                    subtitleStyle = {{
+                        color: statusTheme.color,
+                    }}
                     style = {{
                         backgroundColor: statusTheme.backgroundColor,
                         borderTopRightRadius: 12,
