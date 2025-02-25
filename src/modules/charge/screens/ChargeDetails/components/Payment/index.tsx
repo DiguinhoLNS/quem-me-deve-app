@@ -1,29 +1,49 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import QRCode from "react-native-qrcode-svg"
-import { List, SegmentedButtons } from 'react-native-paper'
+import { StackScreenProps } from '@react-navigation/stack'
+import { List, SegmentedButtons, Text } from 'react-native-paper'
 import Section from '@components/Layout/Section'
 import Container from '@components/Layout/Container'
+import { useTheme } from '@hooks/useTheme'
 import { generatePixCode } from '@modules/charge/controllers/chargeController'
+import { ChargeRouteParams } from '@modules/charge/routes/Charge/types'
 import { useAppSelector } from '@redux/hooks'
 import { marginDefault } from '@styles/layout'
 import share from '@utils/share'
-import { useTheme } from '@hooks/useTheme'
 
-const ChargePayment: React.FC = () => {
+const ChargePayment: React.FC <StackScreenProps<ChargeRouteParams, 'chargeDetails'>> = ({ navigation }) => {
 
+    const { userData } = useAppSelector(s => s.auth)
     const { currentCharge } = useAppSelector(s => s.charge)
     
     const [index, setIndex] = useState('0')
+    const [code, setCode] = useState('')
 
     const theme = useTheme()
 
-    const SHOW_DATA = !!currentCharge
+    const SHOW_NODATA = !currentCharge || !userData!.pixKey
+    const SHOW_DATA = !!currentCharge && userData!.pixKey
 
-    const code = generatePixCode('6ac2da32-84f2-430b-aa1b-f861597d64bc', currentCharge!.amount, 'Rodrigo', 'Sao Paulo')
+    
+    useEffect(() => {
+        if(!!userData && !!userData.pixKey && !!currentCharge){
+            setCode(generatePixCode(userData!.pixKey!, currentCharge!.amount, 'Rodrigo', 'Sao Paulo'))
+        }
+    }, [userData, currentCharge])
 
     return(
 
         <>
+            {SHOW_NODATA && (
+                <Section marginTop = {marginDefault * 4} padding = {false} center>
+                    <Text variant = "titleMedium" style = {{textAlign: 'center'}}>Nenhuma chave PIX cadastrada pra gerar pagamentos!</Text>
+                    <Text
+                        variant = "titleMedium"
+                        style = {{color: theme.colors.primary}}
+                        onPress = {() => navigation.navigate('profileRoutes' as any, { screen: 'profileEdit' })}
+                    >Cadastrar chave PIX</Text>
+                </Section>
+            )}
             {SHOW_DATA && (
                 <>
                     <Section marginBottom = {marginDefault}>
@@ -51,7 +71,7 @@ const ChargePayment: React.FC = () => {
                             <Container padding = {false}>
                                 <List.Item
                                     title = "Chave Pix"
-                                    description = "6ac2da32-84f2-430b-aa1b-f861597d64bc"
+                                    description = {userData!.pixKey}
                                     left = {props => <List.Icon {...props} icon = "content-copy" />}
                                     onPress = {() => share.copy(code)}
                                 />

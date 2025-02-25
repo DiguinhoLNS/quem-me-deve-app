@@ -5,7 +5,6 @@ import { useTheme } from '@hooks/useTheme'
 import { logout } from '@modules/auth/controllers/authController'
 import { useAppTheme } from '@modules/theme/contexts/ThemeContext'
 import { useAppDispatch, useAppSelector } from '@redux/hooks'
-import { AppRouteParams } from '@modules/app/routes/types'
 
 const HeaderMenu: React.FC = () => {
 

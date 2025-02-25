@@ -37,6 +37,7 @@ const FormLogin: React.FC <StackScreenProps<AuthRouteParams, 'authLogin'>> = () 
                                     value = {values.login}
                                     error = {!!errors.login}
                                     onChangeText = {v => setFieldValue('login', v)}
+                                    test-id = "input-login"
                                 />
                             </Section>
                             <Section>
@@ -46,6 +47,7 @@ const FormLogin: React.FC <StackScreenProps<AuthRouteParams, 'authLogin'>> = () 
                                     value = {values.password}
                                     error = {!!errors.password}
                                     onChangeText = {v => setFieldValue('password', v)}
+                                    test-id = "input-password"
                                 />
                             </Section>
                         </Container>

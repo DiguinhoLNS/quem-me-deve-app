@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
-import { FakeCurrencyInput } from 'react-native-currency-input'
+import { Button } from 'react-native-paper'
 import Container from '@components/Layout/Container'
 import BottomSheet from '@components/Common/BottomSheet'
+import FormCurrentyInput from '@components/Common/Form/CurrentyInput'
+import { handleUpdate } from '@modules/charge/controllers/chargeController'
 import { useAppDispatch, useAppSelector } from '@redux/hooks'
 import { useTheme } from '@hooks/useTheme'
-import { contentWidth } from '@styles/layout'
 import { ChargeEditBottomSheetProps } from './types'
-import { Button } from 'react-native-paper'
-import { handleUpdate } from '@modules/charge/controllers/chargeController'
 
 const ChargeEditBottomSheet: React.FC <ChargeEditBottomSheetProps> = ({ bottomSheetRef }) => {
 
@@ -15,7 +14,6 @@ const ChargeEditBottomSheet: React.FC <ChargeEditBottomSheetProps> = ({ bottomSh
     const { currentCharge } = useAppSelector(s => s.charge)
 
     const [newValue, setNewValue] = useState<number>(currentCharge!.amount)
-    const [focus, setFocus] = useState(false)
     
     const theme = useTheme()
 
@@ -35,25 +33,9 @@ const ChargeEditBottomSheet: React.FC <ChargeEditBottomSheetProps> = ({ bottomSh
                 }}
             >
                 <Container>    
-                    <FakeCurrencyInput
-                        value = {newValue ?? 0}
-                        minValue = {0}
-                        maxValue = {999999}
-                        onFocus = {() => setFocus(true)}
-                        onBlur = {() => setFocus(false)}
-                        onChangeValue = {v => setNewValue(v ?? 0)}
-                        caretColor = {theme.colors.primary}
-                        cursorColor = {theme.colors.primary}
-                        placeholderTextColor = {theme.colors.onSurface}
-                        prefix = 'R$ '
-                        precision = {2}
-                        style = {{
-                            width: contentWidth,
-                            borderBottomWidth: 2,
-                            borderBottomColor: focus ? theme.colors.primary : theme.colors.outline,
-                            color: theme.colors.onSurface,
-                            fontSize: 40,
-                        }}
+                    <FormCurrentyInput
+                        value = {newValue}
+                        setValue = {v => setNewValue(v)}
                     />
                 </Container>
 

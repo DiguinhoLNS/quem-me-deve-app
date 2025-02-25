@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FAB, Portal } from 'react-native-paper'
+import { FAB } from 'react-native-paper'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { useTheme } from '@hooks/useTheme'
 import { handleShare, handleCheck, handleDelete, handleToggleFixed } from '@modules/charge/controllers/chargeController'

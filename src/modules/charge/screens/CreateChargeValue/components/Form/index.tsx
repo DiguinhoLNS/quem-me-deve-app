@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Formik } from 'formik'
 import { IconButton, Text } from 'react-native-paper'
 import { StackScreenProps } from '@react-navigation/stack'
-import { FakeCurrencyInput } from 'react-native-currency-input'
 import Section from '@components/Layout/Section'
 import Container from '@components/Layout/Container'
+import CurrentyInput from '@components/Common/Form/CurrentyInput'
 import { useTheme } from '@hooks/useTheme'
 import { setCurrentCreateCharge } from '@modules/charge/reducers/createChargeReducer'
 import { CreateChargeRouteParams } from '@modules/charge/routes/CreateCharge/types'
@@ -17,8 +17,6 @@ const Form: React.FC <StackScreenProps<CreateChargeRouteParams, 'createChargeVal
 
     const dispatch = useAppDispatch()
     const { currentCreateCharge } = useAppSelector(s => s.createCharge)
-
-    const [focus, setFocus] = useState(false)  
 
     const theme = useTheme()
 
@@ -47,25 +45,9 @@ const Form: React.FC <StackScreenProps<CreateChargeRouteParams, 'createChargeVal
                             </Section>
 
                             <Section>    
-                                <FakeCurrencyInput
-                                    value = {values.amount ?? 0}
-                                    minValue = {0}
-                                    maxValue = {999999}
-                                    onFocus = {() => setFocus(true)}
-                                    onBlur = {() => setFocus(false)}
-                                    onChangeValue = {v => setFieldValue('amount', v ?? 0)}
-                                    caretColor = {theme.colors.primary}
-                                    cursorColor = {theme.colors.primary}
-                                    placeholderTextColor = {theme.colors.onSurface}
-                                    prefix = 'R$ '
-                                    precision = {2}
-                                    style = {{
-                                        width: contentWidth,
-                                        borderBottomWidth: 2,
-                                        borderBottomColor: focus ? theme.colors.primary : theme.colors.outline,
-                                        color: theme.colors.onSurface,
-                                        fontSize: 40,
-                                    }}
+                                <CurrentyInput
+                                    value = {values.amount}
+                                    setValue = {v => setFieldValue('amount', v)}
                                 />
                             </Section>
                         </Container>

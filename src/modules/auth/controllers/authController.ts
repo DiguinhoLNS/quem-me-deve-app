@@ -20,7 +20,7 @@ export function logout(dispatch: DispatchType, user: UserData, navigation: Navig
     try {
         resetNavigation(navigation)
 
-        localUser.remove(dispatch)
+        cleanAll(dispatch)
 
         dispatch(setAuthLogout())
     } catch (error) {
