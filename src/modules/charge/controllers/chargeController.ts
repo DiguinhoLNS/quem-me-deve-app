@@ -8,7 +8,7 @@ import { createLocalFunctions } from '@utils/local'
 import { Charge } from "../interfaces/Charge"
 import { CreateCharge } from "../interfaces/CreateCharge"
 import { resetCurrentCreateCharge } from "../reducers/createChargeReducer"
-import { checkCharge, deleteCharge, newCharge, setChargeList, toggleFixedCharge } from '../reducers/chargeReducer'
+import { checkCharge, deleteCharge, newCharge, setChargeList, toggleFixedCharge, updateCharge } from '../reducers/chargeReducer'
 
 export const localCharge = {
     ...createLocalFunctions('chargeList', setChargeList)
@@ -139,6 +139,15 @@ export function handleToggleFixed(dispatch: DispatchType, charge: Charge){
     dispatch(toggleFixedCharge(charge.uuid))
 }
 
+export function handleUpdate(dispatch: DispatchType, charge: Charge){
+    const newCharge = {
+        ...charge,
+        formattedAmount: formatCurrency(charge.amount),
+    }
+
+    dispatch(updateCharge(newCharge))
+}
+
 function calcularCRC16(payload: string){
     let crc = 0xFFFF
     for (let i = 0; i < payload.length; i++) {
@@ -162,8 +171,8 @@ export function generatePixCode(
     cidade: string,
     txid?: string
 ){
-    nome = nome.substring(0, 25);
-    cidade = cidade.substring(0, 15);
+    nome = nome.substring(0, 25)
+    cidade = cidade.substring(0, 15)
 
     const payloadSemCRC = [
         "000201", // Payload Format Indicator

@@ -1,28 +1,28 @@
 import React from 'react'
-import { Avatar, Card, Text } from 'react-native-paper'
+import { useNavigation } from '@react-navigation/native'
+import { Avatar, Card } from 'react-native-paper'
 import Section from '@components/Layout/Section'
-import { useTheme } from '@hooks/useTheme'
-import { getChargeOverview } from '@modules/charge/controllers/chargeController'
 import { useAppSelector } from '@redux/hooks'
+import { formatDate } from '@utils/format'
 
 const UserStatus: React.FC = () => {
 
-    const { chargeList } = useAppSelector(s => s.charge)
+    const { userData } = useAppSelector(s => s.auth)
 
-    const theme = useTheme()
-
-    const { unpaid } = getChargeOverview(chargeList)
+    const navigation = useNavigation<any>()
 
     return(
 
         <>
             <Section marginBottom = {24}>
-                <Card>
+                <Card
+                    onPress = {() => navigation.navigate('profileRoutes', { screen: 'profileEdit' })}
+                >
                     <Card.Title
-                        title = "Cobranças"
-                        subtitle = {`Você possui ${chargeList?.filter(f => !f.dtPaid).length ?? 0} cobranças`}
-                        left = {props => <Avatar.Icon {...props} icon = "cash" />}
-                        right = {() => <Text variant = "titleMedium" style = {{marginRight: 16}}>{unpaid}</Text>}
+                        title = {userData!.name ?? userData!.login}
+                        titleVariant = "titleLarge"
+                        subtitle = {`Último login ${formatDate(new Date(userData!.dtLogin))}`}
+                        left = {props => <Avatar.Icon {...props} icon = "account" />}
                     />
                 </Card>
             </Section>

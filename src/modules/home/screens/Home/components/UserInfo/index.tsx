@@ -33,7 +33,7 @@ const UserInfo: React.FC = () => {
                 >
                     <Section marginBottom = {marginDefault}>
                         <Text variant = "titleLarge" style = {{color: theme.colors.onPrimary}}>{dayMoment()}</Text>
-                        <Text variant = "displayLarge" style = {{color: theme.colors.onPrimary}}>{capitalizeFirstLetter(userData!.login)}</Text>
+                        <Text variant = "displayLarge" style = {{color: theme.colors.onPrimary}}>{capitalizeFirstLetter(userData!.name ?? userData!.login)}</Text>
                     </Section>
 
                     <Section>

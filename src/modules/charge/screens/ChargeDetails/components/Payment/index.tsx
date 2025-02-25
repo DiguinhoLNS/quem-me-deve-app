@@ -32,7 +32,7 @@ const ChargePayment: React.FC = () => {
                             onValueChange = {setIndex}
                             buttons = {[
                                 { icon: 'qrcode', label: 'Pix QRCode', value: '0' },
-                                { icon: 'content-copy', label: 'Chave Pix', value: '1' },
+                                { icon: 'key', label: 'Chave Pix', value: '1' },
                             ]}
                         />
                     </Section>

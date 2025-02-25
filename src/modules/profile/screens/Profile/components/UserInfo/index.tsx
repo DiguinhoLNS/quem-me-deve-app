@@ -1,7 +1,6 @@
 import React from 'react'
-import { Avatar, Text } from 'react-native-paper'
+import { Text } from 'react-native-paper'
 import Divider from '@components/Screen/Divider'
-import Section from '@components/Layout/Section'
 import Container from '@components/Layout/Container'
 import { useTheme } from '@hooks/useTheme'
 import { useAppSelector } from '@redux/hooks'
@@ -25,15 +24,9 @@ const UserInfo: React.FC = () => {
                     marginBottom = {marginDefault}
                     padding = {false}
                 >
-                    <Container type = "row" gap = {12}>
-                        <Avatar.Text
-                            size = {48}
-                            label = {userData!.login[0]}
-                            color = {theme.colors.onPrimaryContainer}
-                            style = {{backgroundColor: theme.colors.primaryContainer}}
-                        />
-
-                        <Text variant = "titleLarge" style = {{color: theme.colors.onPrimary}}>{userData!.login}</Text>
+                    <Container center>
+                        <Text variant = "titleLarge" style = {{color: theme.colors.onPrimary}}>Olá</Text>
+                        <Text variant = "displayLarge" style = {{color: theme.colors.onPrimary}}>{userData!.name ?? userData!.login}</Text>
                     </Container>
                 </Container>
             </Container>

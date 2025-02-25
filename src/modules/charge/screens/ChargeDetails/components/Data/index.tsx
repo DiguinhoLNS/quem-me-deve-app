@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Card, List } from 'react-native-paper'
 import Section from '@components/Layout/Section'
 import { useTheme } from '@hooks/useTheme'
@@ -6,12 +6,15 @@ import { getChargeTheme } from '@modules/charge/controllers/chargeController'
 import { useAppSelector } from '@redux/hooks'
 import { marginDefault } from '@styles/layout'
 import { formatDate } from '@utils/format'
+import ChargeEditBottomSheet from '../EditBottomSheet'
 
 const ChargeData: React.FC = () => {
 
     const { currentCharge } = useAppSelector(s => s.charge)
     
     const theme = useTheme()
+
+    const bottomSheetRef = useRef(null)
 
     const chargeTheme = getChargeTheme(currentCharge!, theme)
 
@@ -23,7 +26,9 @@ const ChargeData: React.FC = () => {
             {SHOW_DATA && (
                 <>
                     <Section marginBottom = {marginDefault * 2}>
-                        <Card>
+                        <Card
+                            onPress = {() => (bottomSheetRef.current as any)!.open()}
+                        >
                             <Card.Title
                                 title = {currentCharge.formattedAmount}
                                 titleVariant = "headlineLarge"
@@ -54,6 +59,10 @@ const ChargeData: React.FC = () => {
                             )}
                         </Card>
                     </Section>
+
+                    <ChargeEditBottomSheet
+                        bottomSheetRef = {bottomSheetRef}
+                    />
                 </>
             )}
         </>

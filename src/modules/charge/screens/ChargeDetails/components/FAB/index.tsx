@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { FAB, Portal } from 'react-native-paper'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { useTheme } from '@hooks/useTheme'
-import { handleShare, handleCheck, handleDelete } from '@modules/charge/controllers/chargeController'
+import { handleShare, handleCheck, handleDelete, handleToggleFixed } from '@modules/charge/controllers/chargeController'
 import { useAppDispatch, useAppSelector } from '@redux/hooks'
 
 const ChargeFAB: React.FC = () => {
@@ -19,11 +19,12 @@ const ChargeFAB: React.FC = () => {
 
     const actions = [
         { icon: 'delete', label: 'Apagar', color: theme.colors.error, labelTextColor: theme.colors.error, onPress: () => handleDelete(dispatch, currentCharge!, navigation.goBack) },
+        { icon: currentCharge!.fixed ? "pin-off" : "pin", label: 'Fixar', onPress: () => handleToggleFixed(dispatch, currentCharge!) },
         { icon: 'cash-check', label: 'Pagar', color: theme.colors.success, labelTextColor: theme.colors.success, onPress: () => handleCheck(dispatch, currentCharge!) },
         { icon: 'share-variant', label: 'Compartilhar', onPress: () => handleShare(dispatch, currentCharge!) },
     ]
 
-    if(currentCharge!.dtPaid) actions.splice(1, 1)
+    if(currentCharge!.dtPaid) actions.splice(1, 2)
 
     return(
 

@@ -32,7 +32,7 @@ const ProfileRoutes: React.FC = () => {
                 name = "profileEdit"
                 component = {ProfileEdit}
                 options = {{
-                    title: 'Editar',
+                    title: 'Perfil',
                 }}
             />
         </Navigator>

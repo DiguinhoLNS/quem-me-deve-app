@@ -12,7 +12,7 @@ const FormInput: React.FC <FormInputProps> = ({
     disabled = false,
     autoCapitalize = "none",
     secure,
-    lines,
+    lines = 1,
     right,
     showRight = true,
     onChangeText
@@ -27,8 +27,8 @@ const FormInput: React.FC <FormInputProps> = ({
         disabled,
         error,
         secureTextEntry: showSecure,
-        multiline: !!lines,
-        numberOfLines: lines ?? 1,
+        multiline: lines > 1,
+        numberOfLines: lines,
         autoCapitalize
     }
 
