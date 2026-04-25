@@ -5,6 +5,7 @@
             "@components/*": ["./src/components/*"],
             "@config/*": ["./src/config/*"],
             "@constants/*": ["./src/constants/*"],
+            "@hooks/*": ["./src/hooks/*"],
             "@interfaces/*": ["./src/interfaces/*"],
             "@mock/*": ["./src/mock/*"],
             "@modules/*": ["./src/modules/*"],

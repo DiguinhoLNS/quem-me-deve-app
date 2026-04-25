@@ -1,5 +1,5 @@
+import Clipboard from '@react-native-clipboard/clipboard'
 import Share, { ShareOptions } from 'react-native-share'
-import Clipboard from "@react-native-community/clipboard"
 import info from '@utils/info'
 import message from '@utils/message'
 

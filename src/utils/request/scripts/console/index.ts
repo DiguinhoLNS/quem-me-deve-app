@@ -12,7 +12,7 @@ function requestLog(method: RequestMethods, endpoint: string){
     }
 }
 
-function headerLog(endpoint: string, header: HeadersInit_){
+function headerLog(header: HeadersInit_, endpoint: string){
     if(SHOW_RESPONSE_LOG.HEADER){
         line()
         console.log('INIT:',endpoint)

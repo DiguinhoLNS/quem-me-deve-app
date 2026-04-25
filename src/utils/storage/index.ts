@@ -3,6 +3,22 @@ import info from "../info"
 
 export const mmkv = new MMKV()
 
+function encryptStorage(key: string){
+    try {
+        mmkv.recrypt(key)
+    } catch (error) {
+        info.error('storage encryptStorage', error)
+    }
+}
+
+function clearEncryptedStorage(){
+    try {
+        mmkv.recrypt(undefined)
+    } catch (error) {
+        info.error('storage clearEncryptedStorage', error)
+    }
+}
+
 function getItem<T>(key: string){
     try {
         const local = mmkv.getString(key)
@@ -32,6 +48,8 @@ function removeItem(key: string){
 
 function clear(){
     try {
+        clearEncryptedStorage()
+
         mmkv.clearAll()
     } catch (error) {
         info.error('storage clear', error)
@@ -39,7 +57,8 @@ function clear(){
 }
 
 const storage = {
-    getItem, setItem, removeItem, clear
+    getItem, setItem, removeItem, clear,
+    encryptStorage, clearEncryptedStorage,
 }
 
 export default storage

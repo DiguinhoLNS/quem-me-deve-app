@@ -1,80 +1,100 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import { Platform, RefreshControl, StatusBar } from 'react-native'
+import React, { useEffect, useMemo, useState, useCallback } from 'react'
+import { Platform, RefreshControl, StatusBar, StatusBarProps } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useIsFocused } from '@react-navigation/native'
-import { useAppSelector } from '@redux/hooks'
+import { useTheme } from '@hooks/useTheme'
+import createScreen from '@modules/app/utils/createScreen'
+import { useAppDispatch } from '@redux/hooks'
 import toPixel from '@utils/toPixel'
-import { ScreenRenderProps } from './types'
 import { Wrapper } from './styles'
-import { StatusBarProps } from 'react-native'
+import { ScreenRenderProps } from './types'
 
-const Render: React.FC<ScreenRenderProps> = ({
+const Render: React.FC <ScreenRenderProps> = React.memo(({
     children,
     header,
-    align,
-    bounces,
-    wrapperColor,
+    align = 'flex-start',
+    bounces = false,
+    wrapperBackgroundColor,
     statusBarMargin,
     paddingBottom,
     onRefresh,
     loadingColor,
-    statusBarOptions
+    statusBarOptions,
+    disableBottomEdge = false,
+    onScroll
 }) => {
 
-    const { theme } = useAppSelector(s => s.theme)
+    const dispatch = useAppDispatch()
+    
+    const [refreshLoading, setRefreshLoading] = useState(false)
 
-    const [resfreshLoading, setRefreshLoading] = useState<boolean>(false)
-    const isFocused = useIsFocused()  
+    const isFocused = useIsFocused()
 
-    const wrapperBackgroundColor = useMemo(() => {
-        return wrapperColor ?? theme.layout.primary
-    }, [wrapperColor, theme])
+    const theme = useTheme()
 
-    const barColor = useMemo(() => {
-        return !!statusBarOptions?.backgroundColor ? statusBarOptions?.backgroundColor : statusBarOptions?.translucent === true ? 'transparent' : wrapperBackgroundColor
-    }, [statusBarOptions, wrapperBackgroundColor])
+    const wrapperBGColor = useMemo(() => 
+        wrapperBackgroundColor ?? theme.colors.surface
+    , [wrapperBackgroundColor, theme.colors.surface])
 
-    const barStyle = useMemo(() => {
-        return statusBarOptions?.barStyle ?? theme.scheme === 'dark-mode' ? 'light-content' : 'dark-content'
-    }, [statusBarOptions, theme])
+    const barColor = useMemo(() => (
+        statusBarOptions?.backgroundColor ?? (statusBarOptions?.translucent ? 'transparent' : wrapperBGColor )
+    ), [statusBarOptions, wrapperBGColor])
+
+    const barStyle = useMemo(() =>(
+        statusBarOptions?.barStyle ?? (theme.dark ? 'dark-content' : 'light-content')
+    ), [statusBarOptions, theme.dark])
 
     const refreshColor = useMemo(() => {
-        return loadingColor ?? Platform.OS === 'ios' ? barStyle === 'dark-content' ? [theme.colors.primary] : ['#fff'] : [theme.colors.primary]
-    }, [loadingColor, barStyle])
+        if(loadingColor) return loadingColor
+        return Platform.OS === 'ios' ? (barStyle === 'dark-content' ? [theme.colors.primary] : ['#fff']) : [theme.colors.primary]
+    }, [loadingColor, barStyle, theme.colors.primary])
 
-    const statusBarProps: StatusBarProps = {
+    const statusBarProps: StatusBarProps = useMemo(() => ({
         barStyle,
         backgroundColor: barColor,
         animated: statusBarOptions?.animated ?? false,
         translucent: statusBarOptions?.translucent ?? false,
-    }
-    
-    const wrapperProps = {
-        align: align ?? 'flex-start',
+    }), [barStyle, barColor, statusBarOptions])
+
+    const wrapperProps = useMemo(() => ({
+        align,
         pad: typeof paddingBottom === 'number' ? toPixel(paddingBottom) : undefined,
         statusBarMargin,
-    }
+    }), [align, paddingBottom, statusBarMargin])
 
-    return (
+    useEffect(() => {
+        if(isFocused){
+            createScreen(dispatch, {
+                statusBarColor: barColor,
+                backgroundColor: wrapperBGColor,
+                disableBottomEdge,
+            })
+        }
+    }, [isFocused, barColor, wrapperBGColor, disableBottomEdge])
+
+    const handleRefresh = useCallback(async () => {
+        setRefreshLoading(true)
+        await onRefresh?.()
+        setRefreshLoading(false)
+    }, [onRefresh])
+
+    return(
 
         <>
             {isFocused && <StatusBar {...statusBarProps} />}
             {!!header && header}
             <KeyboardAwareScrollView
-                contentContainerStyle={{ flexGrow: 1, backgroundColor: wrapperBackgroundColor }}
-                keyboardShouldPersistTaps="handled"
-                bounces={bounces ?? true}
-                refreshControl={onRefresh && (
+                contentContainerStyle = {{ flexGrow: 1, backgroundColor: wrapperBGColor }}
+                keyboardShouldPersistTaps = "handled"
+                bounces = {bounces}
+                onScroll = {onScroll}
+                refreshControl = {onRefresh && (
                     <RefreshControl
-                        colors={refreshColor}
-                        tintColor={refreshColor[0]}
-                        refreshing={resfreshLoading}
-                        style={{ backgroundColor: barColor }}
-                        onRefresh={async () => {
-                            setRefreshLoading(true)
-                            await onRefresh()
-                            setRefreshLoading(false)
-                        }}
+                        colors = {refreshColor}
+                        tintColor = {refreshColor[0]}
+                        refreshing = {refreshLoading}
+                        style = {{ backgroundColor: barColor }}
+                        onRefresh = {handleRefresh}
                     />
                 )}
             >
@@ -84,6 +104,6 @@ const Render: React.FC<ScreenRenderProps> = ({
 
     )
 
-}
+})
 
 export default Render

@@ -1,9 +1,13 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import Login from '../screens/Login'
+import ScreenHeader from '@components/Screen/Header'
+import { useAppSelector } from '@redux/hooks'
+import AuthLogin from '../screens/AuthLogin'
 import { AuthRouteParams } from './types'
 
 const AuthRoutes: React.FC = () => {
+
+    const { screen } = useAppSelector(s => s.app)
 
     const { Navigator, Screen } = createStackNavigator<AuthRouteParams>()
 
@@ -12,12 +16,16 @@ const AuthRoutes: React.FC = () => {
         <Navigator
             initialRouteName = "authLogin"
             screenOptions = {{
-                headerShown: false,
+                cardStyle: { backgroundColor: screen.backgroundColor },
+                header: ScreenHeader
             }}
         >
             <Screen
                 name = "authLogin"
-                component = {Login}
+                component = {AuthLogin}
+                options = {{
+                    title: 'Login'
+                }}
             />
         </Navigator>
 

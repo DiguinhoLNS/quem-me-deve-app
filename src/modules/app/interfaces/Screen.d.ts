@@ -1,5 +1,6 @@
 export interface Screen {
     statusBarColor: string
-    navigationBarColor: string
-    navigatorColor: string
+    backgroundColor: string
+    
+    disableBottomEdge: boolean
 }

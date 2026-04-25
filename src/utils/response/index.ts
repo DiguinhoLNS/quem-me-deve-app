@@ -1,7 +1,7 @@
 import { DispatchType } from "@redux/interfaces"
 import info from "@utils/info"
 import message from "@utils/message"
-import { HandleResponseErrorProps, HandleResponseProps, InitRequestActions, ResponsePattern, ResponseStatesPattern } from "./types"
+import { HandleResponseAction, HandleResponseActionPayload, ResponseDefault, ResponsePattern, ResponseStatesPattern } from "./types"
 
 export const responseInitialValues: ResponseStatesPattern<any> = {
     data: null,
@@ -10,58 +10,76 @@ export const responseInitialValues: ResponseStatesPattern<any> = {
     message: ''
 }
 
-export function initRequest(dispatch: DispatchType, { reset, loading }: InitRequestActions, resetData?: () => void){
-    if(!!resetData){
-        resetData()
-    }
+export function initRequest<T>(dispatch: DispatchType, action: HandleResponseAction<T>, resetData?: () => void){
+    if(!!resetData) resetData()
 
-    dispatch(reset())
-    dispatch(loading())
+    dispatch(action({ actionType: 'setLoading' }))
 }
 
-export function handleResponseError({dispatch, initiator, error, actions, showMessage = false}: HandleResponseErrorProps){
+export function handleResponseError<T>(
+    initiator: string, 
+    dispatch: DispatchType, 
+    action: HandleResponseAction<T>, 
+    error: any,
+    showMessage: boolean = false
+){
+    const messageError = error.message ?? JSON.stringify(error)
+
     info.error(`response ${initiator}`, error)
 
-    const errorMessage = error.message ?? JSON.stringify(error)
+    dispatch(action({ actionType: 'setError', data: messageError }))
 
-    if(!!actions && !!errorMessage){
-        dispatch(actions.error(errorMessage))
-    }
-    if(showMessage){
-        message.danger({ message: errorMessage })
+    if(!!showMessage){
+        message.danger({ message: messageError })
     }
 }
 
-export function handleResponse<T>({dispatch, initiator, response, actions, showMessage = false}: HandleResponseProps){
+export function handleResponse<T>(
+    initiator: string,
+    dispatch: DispatchType,
+    response: ResponsePattern<T> | null, 
+    action: HandleResponseAction<T>,
+    showMessage: boolean = true,
+    onError?: () => void
+){
     return new Promise<T>((resolve) => {
         try {
             if(!!response){
-                if(!!actions){
-                    dispatch(actions.data(response))
-                }
+                dispatch(action({ actionType: 'setData', data: response }))
 
-                if(response.error === false){
-                    if(showMessage && !!response.message[0]){
-                        message.success({ message: response.message[0] })
-                    }
-
-                    resolve(response.data)
-                }else{
-                    throw response.data[0]
-                }
+                resolve(response.data)
             }else{
-                throw 'Erro na requisição'
+                const errorMessage = { message: `${initiator} Error` }
+                throw errorMessage
             }
         } catch (error: any) {
-            handleResponseError({ dispatch, initiator, error, actions, showMessage })
+            handleResponseError<T>(initiator, dispatch, action, error, showMessage)
+
+            if(!!onError) onError()
         }
     })
 }
 
-export function toResponsePattern<T>(data: T): ResponsePattern<T> {
-    return {
-        error: false,
-        message: [] as string[],
-        data: data as T,
+export function handleResponseActions<T>(payload: HandleResponseActionPayload<T>, state: ResponseDefault<T>): ResponseDefault<T> {
+    const { actionType, data } = payload
+    let newState = {...state}
+
+    if(actionType === 'setLoading'){
+        newState = {
+            ...responseInitialValues,
+            loading: true,
+        }
     }
+    if(actionType === 'setData'){
+        newState.data = data as ResponsePattern<T>
+        newState.loading = false
+        newState.error = false
+    }
+    if(actionType === 'setError'){
+        newState.loading = false
+        newState.error = true
+        newState.message = data as string
+    }
+
+    return newState
 }

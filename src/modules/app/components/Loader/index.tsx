@@ -1,26 +1,20 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { ActivityIndicator } from 'react-native-paper'
 import Render from '@components/Screen/Render'
-import createScreen from '@modules/app/utils/createScreen'
-import { useAppDispatch } from '@redux/hooks'
-import { lightTheme } from '@styles/themes'
+import { useTheme } from '@hooks/useTheme'
 
 const AppLoader: React.FC = () => {
 
-    const dispatch = useAppDispatch()
-
-    useEffect(() => {
-        createScreen(dispatch, {
-            statusBarColor: lightTheme.colors.primary,
-            navigationBarColor: lightTheme.colors.primary,
-            navigatorColor: lightTheme.colors.primary,
-        })
-    }, [dispatch])
+    const theme = useTheme()
 
     return(
 
         <Render
-            statusBarOptions = {{ barStyle: 'light-content'}}
+            statusBarOptions = {{
+                barStyle: 'light-content',
+                backgroundColor: theme.colors.primary,
+            }}
+            wrapperColor = {theme.colors.primary}
             align = "center"
         >
             <ActivityIndicator color = "#fff" size = "large" />

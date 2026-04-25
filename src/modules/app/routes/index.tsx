@@ -1,27 +1,48 @@
 import React from 'react'
-import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack'
-import Home from '@modules/home/screens/Home'
+import { createStackNavigator } from '@react-navigation/stack'
+import HomeRoutes from '@modules/home/routes'
+import ChargeRoutes from '@modules/charge/routes/Charge'
+import ProfileRoutes from '@modules/profile/routes'
+import CreateChargeRoutes from '@modules/charge/routes/CreateCharge'
+import ConfigurationRoutes from '@modules/configuration/routes'
 import { useAppSelector } from '@redux/hooks'
 import { AppRouteParams } from './types'
 
 const AppRoutes: React.FC = () => {
 
-    const { Navigator, Screen } = createStackNavigator<AppRouteParams>()
     const { screen } = useAppSelector(s => s.app)
+
+    const { Navigator, Screen } = createStackNavigator<AppRouteParams>()
     
     return (
 
         <Navigator
-            initialRouteName = "home"
+            initialRouteName = "homeRoutes"
             screenOptions = {{
-                headerShown: false,
-                cardStyle: { backgroundColor: screen.navigatorColor },
-                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+                cardStyle: { backgroundColor: screen.backgroundColor },
+                headerShown: false
             }}
         >
             <Screen
-                name = "home"
-                component = {Home}
+                name = "homeRoutes"
+                component = {HomeRoutes}
+            />
+
+            <Screen
+                name = "createChargeRoutes"
+                component = {CreateChargeRoutes}
+            />
+            <Screen
+                name = "configurationRoutes"
+                component = {ConfigurationRoutes}
+            />
+            <Screen
+                name = "profileRoutes"
+                component = {ProfileRoutes}
+            />
+            <Screen
+                name = "chargeRoutes2"
+                component = {ChargeRoutes}
             />
         </Navigator>
 

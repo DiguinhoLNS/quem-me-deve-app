@@ -4,7 +4,7 @@ import { MessageOptions, MessageType, showMessage } from "react-native-flash-mes
 
 const defaultOptions: Partial<MessageOptions> = {
     floating: true,
-    duration: 10000,
+    duration: 3000,
     statusBarHeight: Platform.OS === 'ios' ? getStatusBarHeight() : undefined
 }
 

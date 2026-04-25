@@ -1,4 +1,8 @@
 export interface UserData {
     login: string
-    name:  string
+    password: string
+    dtLogin: Date
+
+    name?: string
+    pixKey?: string
 }

@@ -1,14 +1,14 @@
 import React from 'react'
 import { Text } from 'react-native-paper'
-import { APP_VERSION } from '@components/config'
 import Section from '@components/Layout/Section'
+import { APP_VERSION } from '@config/index'
 
 const AppVersion: React.FC = () => {
 
     return(
 
         <Section center padding = {false}>
-            <Text style = {{color: '#333333', fontSize: 12, fontWeight: 'bold'}}>{APP_VERSION}</Text>
+            <Text variant = "labelSmall">{APP_VERSION.CODE}</Text>
         </Section>
 
     )

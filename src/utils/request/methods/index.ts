@@ -10,7 +10,7 @@ async function requestGet<T>({authorization, endpoint, params}: RequestPattern){
 
         const response = await fetch(input, {
             method: 'GET',
-            headers: createRequestHeaders(authorization)
+            headers: createRequestHeaders(input, authorization),
         })
         const jsonResponse = await response.json()
 
@@ -32,7 +32,7 @@ async function requestPost<T>({authorization, endpoint, params, body}: RequestPa
 
         const response = await fetch(input, {
             method: 'POST',
-            headers: createRequestHeaders(authorization),
+            headers: createRequestHeaders(input, authorization),
             body: JSON.stringify(body)
         })
         const jsonResponse = await response.json()
@@ -55,7 +55,7 @@ async function requestDelete<T>({authorization, endpoint, params, body}: Request
 
         const response = await fetch(input, {
             method: 'DELETE',
-            headers: createRequestHeaders(authorization),
+            headers: createRequestHeaders(input, authorization),
             body: JSON.stringify(body)
         })
         const jsonResponse = await response.json()
@@ -78,7 +78,7 @@ async function requestPut<T>({authorization, endpoint, params, body}: RequestPat
 
         const response = await fetch(input, {
             method: 'PUT',
-            headers: createRequestHeaders(authorization),
+            headers: createRequestHeaders(input, authorization),
             body: JSON.stringify(body)
         })
         const jsonResponse = await response.json()

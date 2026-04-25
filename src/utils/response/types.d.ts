@@ -1,5 +1,5 @@
 import { ActionCreatorWithoutPayload, ActionCreatorWithPayload } from "@reduxjs/toolkit"
-import { DispatchType } from "@redux/interfaces"
+import { handleResponseError } from "."
 
 export interface ResponseStatesPattern<T> {
     data: T | null
@@ -10,35 +10,34 @@ export interface ResponseStatesPattern<T> {
 
 export interface ResponsePattern<T> {
     error: boolean
-    message: string[]
     data: T
+    message: string
 }
 
 export type ResponseDefault<T> = ResponseStatesPattern<ResponsePattern<T>>
 
-export interface HandleResponseActions {
-    data: ActionCreatorWithPayload<ResponsePattern<any>, string>
-    loading: ActionCreatorWithoutPayload<string>
-    error: ActionCreatorWithoutPayload<string>
-    reset: ActionCreatorWithoutPayload<string>
+export type ResponseDefault<T> = ResponseStatesPattern<T>
+
+export type HandleResponseActionsTypes = 'setData' | 'setLoading' | 'setError'
+
+export interface HandleResponseActionPayload<T> {
+    actionType: HandleResponseActionsTypes
+    data?: ResponsePattern<T> | string
 }
 
-export type HandleResponseErrorActions = Omit<HandleResponseActions, 'data' | 'loading'>
+export type HandleResponseAction<T> = ActionCreatorWithPayload<HandleResponseActionPayload<T>>
 
-export type InitRequestActions = Omit<HandleResponseActions, 'data' | 'error'>
-
-export interface HandleResponseProps {
-    initiator: string
-    dispatch: DispatchType
-    response: ResponsePattern<any> | null
-    actions?: HandleResponseActions
-    showMessage?: boolean
+export interface ResponseMessage {
+    text?: string
 }
 
-export interface HandleResponseErrorProps {
-    initiator: string
-    dispatch: DispatchType
-    error: any
-    actions?: HandleResponseErrorActions
-    showMessage?: boolean
+export interface ResponseMessageOptions {
+    errorMessage?: ResponseMessage
+    successMessage?: ResponseMessage
+}
+
+export interface HandleResponseOptions {
+    onSuccess?: () => void
+    onError?: () => void
+    messages?: ResponseMessageOptions
 }

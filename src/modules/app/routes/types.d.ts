@@ -1,3 +1,8 @@
 export type AppRouteParams = {
-    home: undefined
+    homeRoutes: undefined
+
+    createChargeRoutes: undefined
+    chargeRoutes2: undefined
+    configurationRoutes: undefined
+    profileRoutes: undefined
 }

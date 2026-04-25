@@ -1,34 +1,62 @@
-export interface Theme {
-    scheme: 'dark-mode' | 'light-mode'
+import { MD3Theme } from "react-native-paper"
 
-    colors: ThemeColorPattern
-    status: {
-        error: ThemeColorPattern
-        success: ThemeColorPattern
-        info: ThemeColorPattern
-        warning: ThemeColorPattern
-    }
-
-    layout: ThemeLayout
-    typography: ThemeTypography
+export interface Theme extends MD3Theme {
+    colors: Colors
 }
 
-export interface ThemeLayout extends ThemeColorPattern {
-    divider: string
+export interface Colors {
+    primary:              string;
+    onPrimary:            string;
+    primaryContainer:     string;
+    onPrimaryContainer:   string;
+    secondary:            string;
+    onSecondary:          string;
+    secondaryContainer:   string;
+    onSecondaryContainer: string;
+    tertiary:             string;
+    onTertiary:           string;
+    tertiaryContainer:    string;
+    onTertiaryContainer:  string;
+    error:                string;
+    onError:              string;
+    errorContainer:       string;
+    onErrorContainer:     string;
+    background:           string;
+    onBackground:         string;
+    surface:              string;
+    onSurface:            string;
+    surfaceVariant:       string;
+    onSurfaceVariant:     string;
+    outline:              string;
+    outlineVariant:       string;
+    shadow:               string;
+    scrim:                string;
+    inverseSurface:       string;
+    inverseOnSurface:     string;
+    inversePrimary:       string;
+    elevation:            Elevation;
+    surfaceDisabled:      string;
+    onSurfaceDisabled:    string;
+    backdrop:             string;
+    success:              string;
+    onSuccess:            string;
+    successContainer:     string;
+    onSuccessContainer:   string;
+    warning:              string;
+    onWarning:            string;
+    warningContainer:     string;
+    onWarningContainer:   string;
+    info:                 string;
+    onInfo:               string;
+    infoContainer:        string;
+    onInfoContainer:      string;
 }
 
-export interface ThemeTypography {
-    text: ThemeTextColorPattern
-}
-
-export interface ThemeColorPattern {
-    primary: string
-    secondary: string
-    tertiary: string
-}
-
-export interface ThemeTextColorPattern {
-    normal: string
-    light: string
-    dark: string
+export interface Elevation {
+    level0: string;
+    level1: string;
+    level2: string;
+    level3: string;
+    level4: string;
+    level5: string;
 }

@@ -3,13 +3,13 @@ import { setScreen } from "@modules/app/reducers/appReducer"
 import { DispatchType } from "@redux/interfaces"
 
 export default function createScreen(dispatch: DispatchType, screen?: Partial<Screen>){
-    const styles = {
+    const newScreen: Screen = {
         statusBarColor: screen?.statusBarColor ?? '#FFFFFF',
-        navigatorColor: screen?.navigatorColor ?? '#FFFFFF',
-        navigationBarColor: screen?.navigationBarColor ?? '#FFFFFF'
+        backgroundColor: screen?.backgroundColor ?? '#FFFFFF',
+        disableBottomEdge: screen?.disableBottomEdge ?? false
     }
 
-    dispatch(setScreen(styles))
+    dispatch(setScreen(newScreen))
 
-    return styles
+    return newScreen
 }

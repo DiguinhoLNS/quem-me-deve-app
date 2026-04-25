@@ -1,5 +1,7 @@
+import { StyleProp, ViewStyle } from "react-native"
+
 export interface ContainerProps {
-    children: React.ReactNode
+    children?: React.ReactNode
 
     type?: 'column' | 'row'
     wrap?: boolean
@@ -9,4 +11,6 @@ export interface ContainerProps {
     padding?: boolean
     marginTop?: number,
     marginBottom?: number,
+    gap?: number
+    style?: StyleProp<ViewStyle>
 }

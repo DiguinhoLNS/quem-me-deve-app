@@ -1,5 +1,5 @@
 export interface SectionProps {
-    children: React.ReactNode
+    children?: React.ReactNode
 
     type?: 'column' | 'row'
     wrap?: boolean
