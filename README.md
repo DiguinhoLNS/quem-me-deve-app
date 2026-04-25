@@ -1,79 +1,164 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Quem Me Deve 💸
 
-# Getting Started
+Aplicativo móvel em React Native para acompanhar cobranças pessoais, com foco em simplicidade, uso offline e geração de pagamento via Pix.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## 👀 Visão geral
 
-## Step 1: Start the Metro Server
+O app permite:
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+- 💰 Registrar cobranças (valor + devedor).
+- 📊 Acompanhar status (paga/pendente) e recorrência.
+- 📈 Visualizar resumos financeiros (total, pago, em aberto, maior cobrança e maior devedor).
+- 📤 Compartilhar cobranças.
+- 🧾 Gerar pagamento Pix (QRCode ou chave) para cada cobrança.
+- 💾 Persistir dados localmente para uso sem internet.
+- 🎨 Personalizar tema (claro/escuro e paletas de cor).
 
-To start Metro, run the following command from the _root_ of your React Native project:
+## 🧱 Stack principal
+
+- React Native 0.76.3
+- TypeScript
+- Redux Toolkit + React Redux
+- React Navigation (stack + bottom tabs)
+- React Native Paper (UI)
+- Styled Components
+- Formik + Yup (formulários e validação)
+- react-native-mmkv (persistência local)
+- react-native-contacts + react-native-permissions (contatos)
+
+## ✅ Requisitos
+
+- Node.js >= 18
+- Yarn 1.x
+- Ambiente React Native configurado para Android/iOS:
+  https://reactnative.dev/docs/environment-setup
+- Para Android:
+  Android Studio + SDK (minSdk 24, compileSdk 35)
+- Para iOS:
+  Xcode + CocoaPods
+
+## ⚙️ Instalação
 
 ```bash
-# using npm
-npm start
+yarn
+```
 
-# OR using Yarn
+### 🍎 Dependências iOS
+
+```bash
+cd ios
+bundle install
+bundle exec pod install
+cd ..
+```
+
+Se você não usar Bundler, rode `pod install` dentro da pasta `ios`.
+
+## 🔐 Variáveis de ambiente
+
+Crie um arquivo `.env` na raiz do projeto:
+
+```env
+APP_ENDPOINT=https://api.exemplo.com
+APP_DEFAULT_STORAGE_KEY=quem-me-deve
+APP_SENTRY_DSN=
+```
+
+Observações:
+
+- `APP_ENDPOINT` está preparado para uso no login via API (atualmente a chamada de exemplo está comentada no serviço de auth).
+- `APP_DEFAULT_STORAGE_KEY` e `APP_SENTRY_DSN` estão tipados e prontos para evolução.
+
+## ▶️ Como executar
+
+### 1) Inicie o Metro
+
+```bash
 yarn start
 ```
 
-## Step 2: Start your Application
-
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
+### 2) Rode no Android
 
 ```bash
-# using npm
-npm run android
-
-# OR using Yarn
 yarn android
 ```
 
-### For iOS
+### 3) Rode no iOS
 
 ```bash
-# using npm
-npm run ios
-
-# OR using Yarn
 yarn ios
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+Observação: o script iOS atual tenta abrir o simulador `iPhone 16 Pro Max`.
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+## 🧪 Scripts
 
-## Step 3: Modifying your App
+- 🚇 `yarn start`: inicia o bundler Metro.
+- 🤖 `yarn android`: compila e executa no Android.
+- 🍏 `yarn ios`: compila e executa no iOS.
+- 🧹 `yarn lint`: executa o ESLint.
+- ✅ `yarn test`: executa os testes com Jest.
 
-Now that you have successfully run the app, let's modify it.
+## 🗂️ Arquitetura do projeto
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+Estrutura principal de `src`:
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+```text
+src/
+  components/      # Componentes compartilhados (layout, screen, feedback, etc.)
+  config/          # Configurações globais (logs, versão)
+  hooks/           # Hooks de apoio
+  modules/
+    app/           # Provider, requisições iniciais, estado de tela/rede
+    auth/          # Login, usuário local, estado de autenticação
+    charge/        # Regras de cobrança, listagem, detalhes e criação
+    configuration/ # Configurações do app (tema)
+    core/          # Contatos e regras comuns
+    home/          # Home e dashboard
+    profile/       # Dados e edição de perfil
+    theme/         # Contexto, paletas e criação de tema
+  redux/           # Store e hooks tipados
+  routes/          # Controle de rotas autenticadas/não autenticadas
+  utils/           # Helpers (request, response, storage, format, etc.)
+```
 
-## Congratulations! :tada:
+## 🚀 Fluxo de inicialização
 
-You've successfully run and modified your React Native App. :partying_face:
+1. O app sobe com providers de tema, navegação, redux, safe area e gesture handler.
+2. No boot, são carregados dados locais:
+   tema, autenticação e lista de cobranças.
+3. A navegação escolhe rotas autenticadas ou de login com base no estado `auth`.
+4. Sempre que a lista de cobranças muda, o estado é salvo no storage local (MMKV).
+5. O status de conectividade é monitorado para feedback visual de rede.
 
-### Now what?
+## 📌 Regras de negócio relevantes
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+- 🧩 Criação de cobrança em 3 etapas:
+  valor -> devedor (contatos) -> confirmação.
+- 🆔 Cada cobrança recebe UUID e data de criação.
+- 🔄 Cobranças podem ser marcadas como pagas, recorrentes, editadas e removidas.
+- 🔍 Tela de detalhes permite compartilhar cobrança e exibir pagamento Pix.
+- 🔑 O perfil permite cadastrar chave Pix para habilitar geração de QRCode.
 
-# Troubleshooting
+## 🧰 Qualidade e testes
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+```bash
+yarn lint
+yarn test
+```
 
-# Learn More
+## 🛠️ Troubleshooting rápido
 
-To learn more about React Native, take a look at the following resources:
+- Erro no iOS por pods:
+  rode novamente `cd ios && bundle exec pod install`.
+- Erro de cache do Metro:
+  reinicie o bundler com `yarn start --reset-cache`.
+- Erro em módulo nativo após atualizar deps:
+  reinstale pods no iOS e limpe build no Android Studio.
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## 🧭 Próximos passos sugeridos
+
+- 🔌 Ativar fluxo real de autenticação via API no módulo `auth/services`.
+- 🚨 Conectar erros a `APP_SENTRY_DSN`.
+- 🧪 Criar testes unitários para reducers e controladores de cobrança.
+- 🔁 Adicionar CI para lint/test em pull requests.
