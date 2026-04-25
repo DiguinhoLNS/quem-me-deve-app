@@ -97,7 +97,6 @@ Observação: o script iOS atual tenta abrir o simulador `iPhone 16 Pro Max`.
 - 🤖 `yarn android`: compila e executa no Android.
 - 🍏 `yarn ios`: compila e executa no iOS.
 - 🧹 `yarn lint`: executa o ESLint.
-- ✅ `yarn test`: executa os testes com Jest.
 
 ## 🗂️ Arquitetura do projeto
 
@@ -140,13 +139,6 @@ src/
 - 🔍 Tela de detalhes permite compartilhar cobrança e exibir pagamento Pix.
 - 🔑 O perfil permite cadastrar chave Pix para habilitar geração de QRCode.
 
-## 🧰 Qualidade e testes
-
-```bash
-yarn lint
-yarn test
-```
-
 ## 🛠️ Troubleshooting rápido
 
 - Erro no iOS por pods:
@@ -155,10 +147,3 @@ yarn test
   reinicie o bundler com `yarn start --reset-cache`.
 - Erro em módulo nativo após atualizar deps:
   reinstale pods no iOS e limpe build no Android Studio.
-
-## 🧭 Próximos passos sugeridos
-
-- 🔌 Ativar fluxo real de autenticação via API no módulo `auth/services`.
-- 🚨 Conectar erros a `APP_SENTRY_DSN`.
-- 🧪 Criar testes unitários para reducers e controladores de cobrança.
-- 🔁 Adicionar CI para lint/test em pull requests.
